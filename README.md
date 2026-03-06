@@ -82,6 +82,74 @@ citadel.commerce.booking.scheduled  — Cal.com appointment created
 
 ---
 
+## Mission System
+
+Commerce missions drive XP and Brotherhood rank progression. Missions reset every sprint (14 days).
+
+| Mission | Description | XP | Unlock |
+|---------|-------------|-----|--------|
+| First Lead | Capture your first lead via Sorting Hat | 100 | Default |
+| Voice Agent Live | Deploy a ZES voice agent for a client | 300 | Scout rank |
+| TradeBuilder Launch | Complete a TradeBuilder site delivery | 500 | Operator rank |
+| Stripe Wired | Connect a live subscription webhook end-to-end | 150 | Default |
+| 10-Lead Streak | Capture 10 qualified leads in 7 days | 250 | Scout rank |
+| Churn Defender | Retain a cancellation through the dunning flow | 400 | Operator rank |
+| New Vertical | Launch ZES for a new trade industry | 600 | Autopilot rank |
+
+**Daily missions (reset 00:00 UTC):**
+- Emit a `citadel.commerce.lead.captured` event — 25 XP
+- Log a Stripe subscription renewal — 25 XP
+
+XP accumulates toward Brotherhood rank: Initiate → Brother → Devotion Leader → Council → Royal Family.
+Trust Points (TP) are spent per agent invocation and earned through successful outcomes.
+
+---
+
+## Guild Expectations
+
+**Members:**
+- Complete at least 1 mission per sprint
+- Maintain CAPS composite score ≥ 0.60 to stay Active
+- Complete Commerce guild onboarding within 7 days of Sorting Hat placement
+- Post weekly activity in `#deal-talk` or `#agent-dev` lobby channels
+
+**Contributors:**
+- All PRs must reference an SRS code (e.g., `SRS: COM-ZES-001`) in the description
+- Stripe webhook handlers require unit tests before review
+- New trade industry configs must include a ZES `.yaml` configuration file
+- Code review turnaround: 48 hours
+
+**Guild Lead (Chief Revenue Officer):**
+- Weekly revenue summary posted to `#announcements`
+- Resolve open PRs within 72 hours
+- Create 2 new missions per sprint minimum
+
+---
+
+## Contributing
+
+**Branch naming:**
+```
+feat/<srs-code>/<short-description>
+fix/<srs-code>/<short-description>
+docs/<srs-code>/<short-description>
+```
+
+**PR checklist:**
+- [ ] SRS code referenced (e.g., `SRS: COM-ZES-007`)
+- [ ] `npm test` passes
+- [ ] New NATS subjects documented in this README
+- [ ] `.env.example` updated if new env vars added
+- [ ] No hardcoded credentials, IPs, or internal URLs
+
+**Commit format:** `<type>(<srs-code>): <description>`
+Example: `feat(COM-ZES-007): add HVAC industry ZES config`
+
+**SAKE compliance:** New automation modules require a `.sake` file stub.
+See [guild-sdk](https://github.com/citadel-nexus/guild-sdk) for the format.
+
+---
+
 ## Getting Started
 
 ```bash
