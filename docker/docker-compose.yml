@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  guild-commerce:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8422:8422"
+    environment:
+      - NATS_URL=nats://nats:4222
+      - GUILD_PORT=8422
+      - GUILD_NAME=commerce
+    depends_on:
+      - nats
+  nats:
+    image: nats:2.10-alpine
+    ports:
+      - "4222:4222"
