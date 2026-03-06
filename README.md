@@ -105,8 +105,8 @@ src/automation/cml-bridge.ts  — CML task queue bridge
 See `.env.example` for the full list. Required at minimum:
 
 ```
-NATS_URL=nats://147.93.43.117:4222
-SUPABASE_URL=https://hvbvvbkybvzfsrzkpbzl.supabase.co
+NATS_URL=nats://<your-nats-host>:4222
+SUPABASE_URL=https://<your-project-ref>.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=<key>
 STRIPE_SECRET_KEY=<key>
 GUILD_PORT=8422
