@@ -24,7 +24,7 @@
 - mode: staging
 - seat: BITS-CODEGEN
 - operator: Dmitry Richard, mr.nobody@citadel-nexus.com
-- branch: bits/SRS-CN-COMMERCE-BUILD-001-repair
+- branch: dd/bits/SRS-CN-COMMERCE-GOVERNANCE-001-bootstrap
 - brief: .bits/srs/SRS-CN-COMMERCE-BUILD-001.md
 - authorization_source: authenticated operator directive through Bits AI
 
@@ -49,7 +49,7 @@ This is a local staging record, not a claim of a remote VCC database update.
 
 ```bash
 set -euo pipefail
-for phase in RecordsTests OwnershipTests WorkflowTests BuildTests MemoryTests; do
+for phase in RecordsTests OwnershipTests WorkflowTests BuildTests LockfileTests MemoryTests; do
   if python .bits/checks/verify_governance.py "$phase"; then
     echo "PASS: $phase"
   else
@@ -64,3 +64,17 @@ Record independently (do not short-circuit the result table): `npm ci`,
 Python checks require PyYAML 6.0.3. Dependency failures block application
 acceptance, not independent authorized CI/documentation work. No Memory Brief
 was supplied beyond the operator conversation. Grade fields remain pending.
+
+
+## Operator-authorized continuation after PR #19
+
+The operator directed continuing this same dispatch in this session, adding a
+workflow_dispatch-only lockfile refresh with GitHub Packages authentication,
+full-SHA-pinned actions, all five npm gates, and an automated PR on
+bits/lockfile-refresh. Add .github/BUILD.md and rerun offline checks. No lockfile
+may be fabricated locally. Future workflow branch/PR writes are authorized;
+no main push, deployment, settings or secrets changes are authorized.
+
+Publication stays on the UI-bound branch. Since PR #19 already merged the build
+commit, fast-forwarding that branch to origin/main preserves published history
+and avoids replaying it. Only the new continuation belongs in the next PR.

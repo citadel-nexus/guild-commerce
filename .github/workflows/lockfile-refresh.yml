@@ -1,0 +1,192 @@
+# ─── CGRF Header ───────────────────────────────────────────────
+# File:        .github/workflows/lockfile-refresh.yml
+# Stage:       11_COMMIT
+# SRS:         SRS-CN-COMMERCE-BUILD-001
+# CAPS:        pending
+# CK:          pending
+# Dispatch:    DISP-BUILD-commerce
+# Seat:        BITS-CODEGEN
+# Owner:       Citadel Nexus Inc.
+# Created:     2026-10-20
+# Depends:     .nvmrc, package-lock.json, .bits/checks/verify_governance.py
+# EnumType:    Workflow
+# EnumEdges:   DEPENDS_ON .nvmrc; PRODUCES package-lock.json; VERIFIED_BY .bits/checks/verify_governance.py
+# DAG Node:    none
+# Intent:      Generate a real authenticated lockfile and propose it only after all build gates pass.
+# ───────────────────────────────────────────────────────────────
+
+name: Refresh Commerce lockfile
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: commerce-lockfile-refresh
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Resolve and validate lockfile
+    if: >-
+      github.repository == 'citadel-nexus/guild-commerce' &&
+      github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: read
+    outputs:
+      artifact-id: ${{ steps.lockfile.outputs.artifact-id }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .nvmrc
+          registry-url: https://npm.pkg.github.com
+          scope: '@citadel-guilds'
+      - name: Generate the real dependency graph
+        run: npm install --package-lock-only --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+      - name: Validate the generated lockfile
+        run: npm ci && npm run lint && npm run typecheck && npm test && npm run build
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+      - name: Record successful lockfile validation
+        shell: python
+        run: |
+          from datetime import datetime, timezone
+          from pathlib import Path
+          import json
+          import os
+
+          root = Path('.bits/out/DISP-BUILD-commerce')
+          memory = root / 'memory.json'
+          report = root / 'report.md'
+          payload = json.loads(memory.read_text())
+          entries = payload['entries']
+          source = next(e for e in entries if e['type'] == 'A' and e['file_path'] == 'package.json')
+          record = dict(source, file_path='package-lock.json', functions=[], dependencies=['package.json'],
+                        intent_statement='Record the real resolved Commerce dependency graph for reproducible installs.',
+                        outcome='success', supersedes=False)
+          entries[:] = [e for e in entries if not (e['type'] == 'A' and e['file_path'] == 'package-lock.json')]
+          entries.append(record)
+          if not any(e['type'] == 'B' and e['source'] == 'package-lock.json' and e['edge_type'] == 'DEPENDS_ON' and e['target'] == 'package.json' for e in entries):
+              entries.append(dict(type='B', source='package-lock.json', target='package.json', edge_type='DEPENDS_ON',
+                                  weight=1.0, description='Resolve the declared Commerce dependencies.',
+                                  dispatch_id='DISP-BUILD-commerce', created_by='BITS-CODEGEN'))
+          run_url = f"{os.environ['GITHUB_SERVER_URL']}/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          entries.append(dict(type='C', event_type='test_pass', file_path='package-lock.json',
+                              description=f'Real lockfile generated; npm ci/lint/typecheck/test/build passed: {run_url}',
+                              caps_before=None, caps_after=None, dag_impact=None, dispatch_id='DISP-BUILD-commerce',
+                              timestamp=datetime.now(timezone.utc).isoformat(), commit_sha=os.environ['GITHUB_SHA'], smoke_result='5/5'))
+          with report.open('a') as output:
+              output.write(f'\n## Latest lockfile validation run\n\n{run_url}\n\n')
+              output.write('npm ci, lint, typecheck, test and build: PASS (5/5) for the generated lockfile.\n')
+              output.write('This supersedes the earlier sandbox dependency blockers for this run only.\n')
+              output.write('Live attestation and administrator enablement remain separate acceptance gates.\n')
+          for kind in ('A', 'B', 'C'):
+              payload['summary'][f'type_{kind.lower()}_count'] = sum(e['type'] == kind for e in entries)
+          for _ in range(3):
+              memory.write_text(json.dumps(payload, indent=2) + '\n')
+              for entry in entries:
+                  if entry['type'] == 'A':
+                      entry['lines'] = len(Path(entry['file_path']).read_text().splitlines())
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        id: lockfile
+        with:
+          name: validated-lockfile
+          path: |
+            package-lock.json
+            .bits/out/DISP-BUILD-commerce/memory.json
+            .bits/out/DISP-BUILD-commerce/report.md
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
+
+  propose:
+    name: Open lockfile pull request
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          artifact-ids: ${{ needs.validate.outputs.artifact-id }}
+          path: ${{ runner.temp }}/validated-lockfile
+          merge-multiple: true
+      - name: Propose only the validated lockfile and evidence
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          branch=bits/lockfile-refresh
+          test "$branch" != "$BASE_BRANCH"
+          gh auth setup-git
+          existing=$(git ls-remote --heads origin "refs/heads/$branch")
+          if [ -n "$existing" ]; then
+            echo 'FAIL: bits/lockfile-refresh already exists; review it before rerunning. No branch was overwritten.'
+            exit 1
+          fi
+          test -s "$RUNNER_TEMP/validated-lockfile/package-lock.json"
+          cp "$RUNNER_TEMP/validated-lockfile/package-lock.json" package-lock.json
+          if git ls-files --error-unmatch package-lock.json >/dev/null 2>&1 && git diff --quiet -- package-lock.json; then
+            echo 'No lockfile changes to propose; validation evidence stays in this run.'
+            exit 0
+          fi
+          cp "$RUNNER_TEMP/validated-lockfile/.bits/out/DISP-BUILD-commerce/memory.json" .bits/out/DISP-BUILD-commerce/memory.json
+          cp "$RUNNER_TEMP/validated-lockfile/.bits/out/DISP-BUILD-commerce/report.md" .bits/out/DISP-BUILD-commerce/report.md
+          git switch -c "$branch"
+          git add -- package-lock.json .bits/out/DISP-BUILD-commerce/memory.json .bits/out/DISP-BUILD-commerce/report.md
+          if git diff --cached --quiet; then
+            echo 'No lockfile changes to propose.'
+            exit 0
+          fi
+          # Scope this identity to the ephemeral Actions runner, not contributor settings.
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit \
+            -m 'chore(guild): refresh the validated lockfile' \
+            -m 'Resolve the real SDK and toolchain graph to make Commerce builds reproducible.' \
+            -m $'Phase: B\nFiles: package-lock.json, .bits/out/DISP-BUILD-commerce/memory.json, .bits/out/DISP-BUILD-commerce/report.md\nSmoke: 5/5 npm gates\nSRS: SRS-CN-COMMERCE-BUILD-001\nDispatch: DISP-BUILD-commerce\nCK: pending'
+          git push origin "HEAD:refs/heads/$branch"
+          cat > "$RUNNER_TEMP/lockfile-pr.md" <<'BODY'
+          ## Summary
+          Generate the real dependency graph so Commerce can install reproducibly.
+          ## Changes
+          Add the registry-generated lockfile and validation evidence. No runtime changes.
+          ## Testing
+          npm ci, lint, typecheck, test (including coverage) and build passed before publication.
+          ## SRS Code
+          SRS: SRS-CN-COMMERCE-BUILD-001
+          Dispatch: DISP-BUILD-commerce
+          ## Type of Change
+          - [x] chore — maintenance, refactor
+          ## Checklist
+          - [x] SRS code referenced in commit (fixed branch authorized by the operator)
+          - [x] npm test passes
+          - [x] npm run lint passes
+          - [ ] Reviewed by at least 1 guild member
+          ## Related Issues
+          Continues DISP-BUILD-commerce; no issue-closing reference supplied.
+          ## Administrator prerequisites
+          Required PR checks may need a human-triggered follow-up: GITHUB_TOKEN-created PR events do not trigger other workflows.
+          This bot commit is unsigned. Signed-commit rules must be satisfied through an approved signing path before merge; no bypass is requested.
+          ## Evidence and rollback
+          See .bits/out/DISP-BUILD-commerce/report.md and memory.json. Roll back with a reviewed revert.
+          BODY
+          gh pr create --repo "$GITHUB_REPOSITORY" --base "$BASE_BRANCH" --head "$branch" \
+            --title 'chore(guild): refresh lockfile [SRS-CN-COMMERCE-BUILD-001] [Dispatch:DISP-BUILD-commerce]' \
+            --body-file "$RUNNER_TEMP/lockfile-pr.md"

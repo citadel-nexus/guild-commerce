@@ -1,0 +1,20 @@
+# ─── CGRF Header ───────────────────────────────────────────────
+# File:        .nvmrc.cgrf.yaml
+# Stage:       11_COMMIT
+# SRS:         SRS-CN-COMMERCE-BUILD-001
+# CAPS:        pending
+# CK:          pending
+# Dispatch:    DISP-BUILD-commerce
+# Seat:        BITS-CODEGEN
+# Owner:       Citadel Nexus Inc.
+# Created:     2026-10-20
+# Depends:     .nvmrc
+# EnumType:    ConfigDoc
+# EnumEdges:   GATES .nvmrc
+# DAG Node:    none
+# Intent:      Provide governance metadata without changing the nvm version-file grammar.
+# ───────────────────────────────────────────────────────────────
+
+file: .nvmrc
+intent_statement: Select the same Node major as Commerce CI for lockfile resolution.
+enum_edges: GATES .github/workflows/lockfile-refresh.yml

@@ -25,13 +25,14 @@ Status: PARTIAL — configuration/CI implemented; real dependency resolution blo
 Dispatch: DISP-BUILD-commerce
 Seat: BITS-CODEGEN
 SRS: SRS-CN-COMMERCE-BUILD-001
-Branch: bits/SRS-CN-COMMERCE-BUILD-001-repair
-Base: 15c62810b6baf379b54d850cac9210f39719b92f (origin/main, includes PRs #18 and #16)
+Branch: dd/bits/SRS-CN-COMMERCE-GOVERNANCE-001-bootstrap (UI-bound, operator-authorized)
+Base: 5dc37392985348cfb1749dbd70175699e1738967 (origin/main, includes merged build PR #19)
 Tasks: A/C implemented, B partial, D recorded; application acceptance incomplete.
-Smoke: 5/5 governance/build-policy gates, 17/17 Python checks;
+Smoke: 6/6 continuation gates; 22/22 Python policy checks;
 application commands 1/5 passed with caveats.
 CKS Gate: B+/75; CKS: pending; CAPS: pending; CAPS minimum: pending; CK: pending.
-Commits: inspect `git log --oneline 15c62810b6baf379b54d850cac9210f39719b92f..HEAD`.
+Commits: inspect `git log --oneline 5dc37392985348cfb1749dbd70175699e1738967..HEAD`.
+Previously merged build commit ce8a7ed is preserved; no published commit was rebased.
 
 ## §2 TASK RESULTS
 
@@ -107,7 +108,7 @@ Actionlint/pytest are unavailable. CI still requires real npm success.
 ## §4 MEMORY INGEST
 
 Payload: .bits/out/DISP-BUILD-commerce/memory.json.
-Type A: 25; Type B: 41; Type C: 3. IOO compliance: true; DKG orphans: 0.
+Current Type A/B/C counts are in the payload summary. IOO compliance: true; DKG orphans: 0.
 Validate with MemoryTests. Each file has a
 substantive intent and at least one Type B edge. IOO fields are non-null;
 CK/CAPS pending. No direct memory ingestion or remote VCC update.
@@ -128,8 +129,8 @@ so application SAKE stubs are not applicable. Existing runtime sources, source
 subjects, release publishing and the old governance payload were not changed.
 No production/deploy, remote push, GitHub settings or secrets changes.
 GitHub owner team/app remain operator-confirmed; no mapping follow-up reopened.
-Secret-prefix scan: all 25 touched files passed. Stripe: not applicable; no checkout code.
-Verify scope: `git diff --name-only 15c62810b6baf379b54d850cac9210f39719b92f HEAD`.
+Secret-prefix scan: continuation changed-file scan passed; no lockfile or dist exists locally. Stripe: not applicable; no checkout code.
+Verify scope: `git diff --name-only 5dc37392985348cfb1749dbd70175699e1738967 HEAD`.
 
 ## §7 NEXT ACTIONS
 
@@ -144,6 +145,60 @@ Verify scope: `git diff --name-only 15c62810b6baf379b54d850cac9210f39719b92f HEA
 - After a successful main build, validate real positive and negative attestation
   verification in the new Verify build provenance job. Live issuance untested.
 - Operator: CAPS minimum remains pending. No private-stack handoff requested.
-- PR: new BUILD SRS branch/PR only; do not update merged governance PR #18.
+- PR: new BUILD follow-up diff on the current-main UI-bound branch; PRs #18/#19 are merged.
   Suggested labels: bits:codegen, srs:srs-cn-commerce-build-001,
   dispatch:disp-build-commerce, verified:manual-review. No tests-pass label.
+
+
+## Lockfile-refresh continuation (same dispatch)
+
+The operator authorized a workflow_dispatch-only flow, its build guide, and
+alignment of the bound branch with current main. GitHub confirms PR #19 already
+merged ce8a7ed. The bound branch was a main ancestor and fast-forwarded to
+5dc37392985348cfb1749dbd70175699e1738967. Replaying/rebasing that published build
+commit would duplicate merged work. The next PR diff contains only this follow-up.
+Publication itself remains an external UI action; no refs were pushed here.
+
+Added .github/workflows/lockfile-refresh.yml and .github/BUILD.md, .nvmrc (Node 20)
+and parser-safe governance companions. Every action in the new workflow is pinned
+to a full SHA. The validation job has contents:read/packages:read, authenticates
+GitHub Packages using GITHUB_TOKEN, generates the real lockfile and runs all five
+npm gates. Only after success does a separate contents:write/pull-requests:write
+job download its immutable artifact, commit the allowlisted lockfile/evidence and
+open a PR on bits/lockfile-refresh. It refuses existing branches and never pushes
+to main or force-pushes. No workflow was dispatched, and no local lockfile exists.
+
+New LockfileTests cover the dispatch/default-ref restriction, SHA pins, scoped
+registry auth, permission separation, all five gate failures, fixed-branch
+publication, shell/Python syntax and refusal to overwrite an existing branch.
+The first run had one false-positive assertion: the phrase 'npm gates' inside a
+commit message matched a no-npm-command check. The assertion now matches actual
+shell command positions, retaining the no-dependency-execution requirement for
+the write-enabled job. All five LockfileTests then passed; strict mypy passed.
+Verify: `python .bits/checks/verify_governance.py LockfileTests`.
+
+All requested npm commands were rerun with npm_config_offline=true:
+
+| Command | Latest result |
+| --- | --- |
+| npm ci | BLOCKED: no package-lock.json (EUSAGE) |
+| npm run lint | PASS using preinstalled ESLint/parser tools via ignored local symlinks |
+| npm run typecheck | BLOCKED: missing @types/node (TS2688) |
+| npm test | BLOCKED: Vitest not installed |
+| npm run build | BLOCKED: missing Node types, NATS and SDK; no dist emitted |
+
+No application tests or live cryptographic verification are claimed to pass.
+No sandbox lockfile generation was attempted in this continuation. The registry
+scope/package availability and GITHUB_TOKEN package read grant need admin/package
+maintainer validation. No new tokens or secrets were created or printed.
+
+Admin prerequisites are in .github/BUILD.md: package access, Actions PR creation,
+branch rules, required checks and approved commit signing, plus separate signer
+OIDC/attestation permissions. GITHUB_TOKEN-created PRs do not trigger other
+workflows, and this refresh bot commit is unsigned: a trusted check-triggering
+and signing path is required before merge. Existing CI/provenance install jobs
+also need reviewed private-SDK auth configuration; the manual flow does not
+silently change them. No ruleset bypass or settings changes were performed.
+
+Final continuation verification: 22/22 policy checks, all six phase gates and
+strict mypy passed. The five requested npm outcomes remain as recorded above.

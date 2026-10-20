@@ -105,7 +105,7 @@
       "dependencies": [
         ".bits/queue/DISP-BUILD-commerce.md"
       ],
-      "lines": 38,
+      "lines": 42,
       "caps_grade": "pending",
       "ck_stamp": "pending",
       "intent_statement": "Identify the separate authorized build repair and its baseline.",
@@ -146,7 +146,7 @@
       "dependencies": [
         ".bits/srs/SRS-CN-COMMERCE-BUILD-001.md"
       ],
-      "lines": 86,
+      "lines": 89,
       "caps_grade": "pending",
       "ck_stamp": "pending",
       "intent_statement": "Register the separate operator-authorized Commerce build repair.",
@@ -188,7 +188,7 @@
         "package.json",
         ".github/workflows/provenance.yml"
       ],
-      "lines": 46,
+      "lines": 51,
       "caps_grade": "pending",
       "ck_stamp": "pending",
       "intent_statement": "Define build repair without weakening application or provenance checks.",
@@ -240,7 +240,7 @@
         ".bits/srs/SRS-CN-COMMERCE-BUILD-001.md",
         ".bits/checks/verify_governance.py"
       ],
-      "lines": 66,
+      "lines": 80,
       "caps_grade": "pending",
       "ck_stamp": "pending",
       "intent_statement": "Bind build-repair work and validation to the operator directive.",
@@ -976,6 +976,7 @@
         "OwnershipTests",
         "WorkflowTests",
         "BuildTests",
+        "LockfileTests",
         "MemoryTests"
       ],
       "dependencies": [
@@ -994,7 +995,7 @@
         "unittest",
         "yaml"
       ],
-      "lines": 333,
+      "lines": 428,
       "caps_grade": "pending",
       "ck_stamp": "pending",
       "intent_statement": "Retain governance checks and test the build and verifier trust boundaries.",
@@ -1108,7 +1109,7 @@
         ".bits/queue/DISP-BUILD-commerce.md",
         ".bits/out/DISP-BUILD-commerce/memory.json"
       ],
-      "lines": 149,
+      "lines": 204,
       "caps_grade": "pending",
       "ck_stamp": "pending",
       "intent_statement": "Record completed build repair and unresolved dependency and admin acceptance.",
@@ -1159,7 +1160,7 @@
       "dependencies": [
         ".bits/out/DISP-BUILD-commerce/report.md"
       ],
-      "lines": 1284,
+      "lines": 1536,
       "caps_grade": "pending",
       "ck_stamp": "pending",
       "intent_statement": "Preserve build-repair file relationships and observed validation evidence.",
@@ -1230,6 +1231,244 @@
       "created_by": "BITS-CODEGEN"
     },
     {
+      "type": "A",
+      "file_path": ".github/workflows/lockfile-refresh.yml",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "Workflow",
+      "functions": [],
+      "dependencies": [
+        ".nvmrc",
+        "package-lock.json",
+        ".bits/checks/verify_governance.py"
+      ],
+      "lines": 192,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Generate a real authenticated lockfile and propose it only after all build gates pass.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".github/workflows/lockfile-refresh.yml",
+      "target": ".nvmrc",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": ".github/workflows/lockfile-refresh.yml depends_on .nvmrc.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".github/workflows/lockfile-refresh.yml",
+      "target": "package-lock.json",
+      "edge_type": "PRODUCES",
+      "weight": 1.0,
+      "description": ".github/workflows/lockfile-refresh.yml produces package-lock.json.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".github/workflows/lockfile-refresh.yml",
+      "target": ".bits/checks/verify_governance.py",
+      "edge_type": "VERIFIED_BY",
+      "weight": 1.0,
+      "description": ".github/workflows/lockfile-refresh.yml verified_by .bits/checks/verify_governance.py.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".nvmrc",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        ".github/workflows/lockfile-refresh.yml"
+      ],
+      "lines": 1,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Select the same Node major as Commerce CI for lockfile resolution.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".nvmrc",
+      "target": ".github/workflows/lockfile-refresh.yml",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": ".nvmrc gates .github/workflows/lockfile-refresh.yml.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".nvmrc.cgrf.yaml",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        ".nvmrc"
+      ],
+      "lines": 20,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Provide governance metadata without changing the nvm version-file grammar.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".nvmrc.cgrf.yaml",
+      "target": ".nvmrc",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": ".nvmrc.cgrf.yaml gates .nvmrc.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": "package-lock.cgrf.yaml",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        "package-lock.json"
+      ],
+      "lines": 20,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Provide governance metadata for the future registry-generated lockfile.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "package-lock.cgrf.yaml",
+      "target": "package-lock.json",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": "package-lock.cgrf.yaml gates package-lock.json.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".github/BUILD.md",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "Doc",
+      "functions": [],
+      "dependencies": [
+        ".github/workflows/lockfile-refresh.yml",
+        "GOVERNANCE.md"
+      ],
+      "lines": 121,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Explain authenticated lockfile generation and the remaining administrator gates.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".github/BUILD.md",
+      "target": ".github/workflows/lockfile-refresh.yml",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": ".github/BUILD.md depends_on .github/workflows/lockfile-refresh.yml.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".github/BUILD.md",
+      "target": "GOVERNANCE.md",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": ".github/BUILD.md depends_on GOVERNANCE.md.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
       "type": "C",
       "event_type": "test_pass",
       "file_path": ".bits/checks/verify_governance.py",
@@ -1267,12 +1506,25 @@
       "timestamp": "2026-10-20T17:59:53.385913+00:00",
       "commit_sha": null,
       "smoke_result": "17/17"
+    },
+    {
+      "type": "C",
+      "event_type": "smoke_run",
+      "file_path": ".github/workflows/lockfile-refresh.yml",
+      "description": "Manual lockfile refresh continuation: 22 policy checks across six phase gates and strict mypy passed. npm lint passed using preinstalled tools; npm ci/typecheck/test/build remain dependency-blocked. No local lockfile fabricated or workflow dispatched.",
+      "caps_before": null,
+      "caps_after": null,
+      "dag_impact": null,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "timestamp": "2026-10-20T18:21:35.172259+00:00",
+      "commit_sha": null,
+      "smoke_result": "22/22"
     }
   ],
   "summary": {
-    "type_a_count": 25,
-    "type_b_count": 41,
-    "type_c_count": 3,
+    "type_a_count": 30,
+    "type_b_count": 49,
+    "type_c_count": 4,
     "ioo_compliance": true,
     "dkg_orphans": 0,
     "dispatch_id": "DISP-BUILD-commerce",
