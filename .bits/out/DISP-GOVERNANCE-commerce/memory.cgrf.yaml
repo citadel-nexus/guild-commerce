@@ -1,0 +1,29 @@
+# ─── CGRF Header ───────────────────────────────────────────────
+# File:        .bits/out/DISP-GOVERNANCE-commerce/memory.cgrf.yaml
+# Stage:       11_COMMIT
+# SRS:         SRS-CN-COMMERCE-GOVERNANCE-001
+# CAPS:        pending
+# CK:          pending
+# Dispatch:    DISP-GOVERNANCE-commerce
+# Seat:        BITS-CODEGEN
+# Owner:       Citadel Nexus Inc.
+# Created:     2026-10-20
+# Depends:     .bits/out/DISP-GOVERNANCE-commerce/memory.json
+# EnumType:    ConfigDoc
+# EnumEdges:   GATES .bits/out/DISP-GOVERNANCE-commerce/memory.json
+# DAG Node:    none
+# Intent:      Supply governance metadata for the JSON memory payload without invalid JSON comments.
+# ───────────────────────────────────────────────────────────────
+
+file: .bits/out/DISP-GOVERNANCE-commerce/memory.json
+stage: 11_COMMIT
+srs: SRS-CN-COMMERCE-GOVERNANCE-001
+caps: pending
+ck: pending
+dispatch: DISP-GOVERNANCE-commerce
+seat: BITS-CODEGEN
+owner: Citadel Nexus Inc.
+created: '2026-10-20'
+enum_type: Doc
+intent_statement: Preserve file relationships and observed validation evidence for post-merge ingestion.
+enum_edges: DEPENDS_ON .bits/out/DISP-GOVERNANCE-commerce/report.md

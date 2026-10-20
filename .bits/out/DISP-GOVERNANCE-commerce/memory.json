@@ -1,0 +1,718 @@
+{
+  "entries": [
+    {
+      "type": "A",
+      "file_path": "AGENTS.md",
+      "cket_stage": "04_HYPOTHESIZE",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-GOVERNANCE-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        ".bits/queue/DISP-GOVERNANCE-commerce.md"
+      ],
+      "lines": 59,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Constrain Commerce governance work to the authorized public staging scope.",
+      "objective_id": "DISP-GOVERNANCE-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-GOVERNANCE-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-GOVERNANCE-001",
+        "governance-provenance"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "AGENTS.md",
+      "target": ".bits/queue/DISP-GOVERNANCE-commerce.md",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": "AGENTS.md depends_on .bits/queue/DISP-GOVERNANCE-commerce.md.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": "CLAUDE.md",
+      "cket_stage": "04_HYPOTHESIZE",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-GOVERNANCE-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        "AGENTS.md",
+        "GOVERNANCE.md"
+      ],
+      "lines": 34,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Give IDE seats a shared boundary for the Commerce governance bootstrap.",
+      "objective_id": "DISP-GOVERNANCE-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-GOVERNANCE-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-GOVERNANCE-001",
+        "governance-provenance"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "CLAUDE.md",
+      "target": "AGENTS.md",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": "CLAUDE.md depends_on AGENTS.md.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": "CLAUDE.md",
+      "target": "GOVERNANCE.md",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": "CLAUDE.md depends_on GOVERNANCE.md.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/context.md",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-GOVERNANCE-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        ".bits/queue/DISP-GOVERNANCE-commerce.md"
+      ],
+      "lines": 40,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Identify the active staging dispatch without authorizing unrelated work.",
+      "objective_id": "DISP-GOVERNANCE-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-GOVERNANCE-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-GOVERNANCE-001",
+        "governance-provenance"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/context.md",
+      "target": ".bits/queue/DISP-GOVERNANCE-commerce.md",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": ".bits/context.md depends_on .bits/queue/DISP-GOVERNANCE-commerce.md.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/srs_registry.yml",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-GOVERNANCE-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        ".bits/srs/SRS-CN-COMMERCE-GOVERNANCE-001.md"
+      ],
+      "lines": 52,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Register the operator-authorized governance scope alongside existing work.",
+      "objective_id": "DISP-GOVERNANCE-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-GOVERNANCE-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-GOVERNANCE-001",
+        "governance-provenance"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/srs_registry.yml",
+      "target": ".bits/srs/SRS-CN-COMMERCE-GOVERNANCE-001.md",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": ".bits/srs_registry.yml gates .bits/srs/SRS-CN-COMMERCE-GOVERNANCE-001.md.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/srs/SRS-CN-COMMERCE-GOVERNANCE-001.md",
+      "cket_stage": "04_HYPOTHESIZE",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-GOVERNANCE-001"
+      ],
+      "enum_type": "Doc",
+      "functions": [],
+      "dependencies": [
+        "GOVERNANCE.md",
+        ".github/workflows/provenance.yml"
+      ],
+      "lines": 56,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Define reviewable ownership and provenance acceptance criteria for Commerce.",
+      "objective_id": "DISP-GOVERNANCE-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-GOVERNANCE-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-GOVERNANCE-001",
+        "governance-provenance"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/srs/SRS-CN-COMMERCE-GOVERNANCE-001.md",
+      "target": "GOVERNANCE.md",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": ".bits/srs/SRS-CN-COMMERCE-GOVERNANCE-001.md gates GOVERNANCE.md.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".bits/srs/SRS-CN-COMMERCE-GOVERNANCE-001.md",
+      "target": ".github/workflows/provenance.yml",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": ".bits/srs/SRS-CN-COMMERCE-GOVERNANCE-001.md gates .github/workflows/provenance.yml.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/queue/DISP-GOVERNANCE-commerce.md",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-GOVERNANCE-001"
+      ],
+      "enum_type": "Doc",
+      "functions": [],
+      "dependencies": [
+        ".bits/srs/SRS-CN-COMMERCE-GOVERNANCE-001.md",
+        ".bits/checks/verify_governance.py"
+      ],
+      "lines": 87,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Bind staging governance tasks to the authenticated operator directive.",
+      "objective_id": "DISP-GOVERNANCE-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-GOVERNANCE-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-GOVERNANCE-001",
+        "governance-provenance"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/queue/DISP-GOVERNANCE-commerce.md",
+      "target": ".bits/srs/SRS-CN-COMMERCE-GOVERNANCE-001.md",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": ".bits/queue/DISP-GOVERNANCE-commerce.md gates .bits/srs/SRS-CN-COMMERCE-GOVERNANCE-001.md.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".bits/queue/DISP-GOVERNANCE-commerce.md",
+      "target": ".bits/checks/verify_governance.py",
+      "edge_type": "VERIFIED_BY",
+      "weight": 1.0,
+      "description": ".bits/queue/DISP-GOVERNANCE-commerce.md verified_by .bits/checks/verify_governance.py.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".github/CODEOWNERS",
+      "cket_stage": "06_PLAN",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-GOVERNANCE-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        "GOVERNANCE.md"
+      ],
+      "lines": 26,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Route Commerce changes to the guildmaster team while retaining SDK review.",
+      "objective_id": "DISP-GOVERNANCE-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-GOVERNANCE-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-GOVERNANCE-001",
+        "governance-provenance"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".github/CODEOWNERS",
+      "target": "GOVERNANCE.md",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": ".github/CODEOWNERS gates GOVERNANCE.md.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": "GOVERNANCE.md",
+      "cket_stage": "06_PLAN",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-GOVERNANCE-001"
+      ],
+      "enum_type": "Doc",
+      "functions": [],
+      "dependencies": [
+        ".github/CODEOWNERS",
+        ".github/workflows/provenance.yml"
+      ],
+      "lines": 184,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Make Commerce approval authority and artifact trust requirements explicit.",
+      "objective_id": "DISP-GOVERNANCE-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-GOVERNANCE-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-GOVERNANCE-001",
+        "governance-provenance"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "GOVERNANCE.md",
+      "target": ".github/CODEOWNERS",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": "GOVERNANCE.md depends_on .github/CODEOWNERS.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": "GOVERNANCE.md",
+      "target": ".github/workflows/provenance.yml",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": "GOVERNANCE.md depends_on .github/workflows/provenance.yml.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".github/workflows/provenance.yml",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-GOVERNANCE-001"
+      ],
+      "enum_type": "Workflow",
+      "functions": [],
+      "dependencies": [
+        "commerce-build",
+        "commerce-provenance",
+        ".bits/checks/verify_governance.py"
+      ],
+      "lines": 113,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Bind compiled Commerce artifacts to a trusted main-branch build identity.",
+      "objective_id": "DISP-GOVERNANCE-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-GOVERNANCE-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-GOVERNANCE-001",
+        "governance-provenance"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".github/workflows/provenance.yml",
+      "target": "commerce-build",
+      "edge_type": "PRODUCES",
+      "weight": 1.0,
+      "description": ".github/workflows/provenance.yml produces commerce-build.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".github/workflows/provenance.yml",
+      "target": "commerce-provenance",
+      "edge_type": "PRODUCES",
+      "weight": 1.0,
+      "description": ".github/workflows/provenance.yml produces commerce-provenance.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".github/workflows/provenance.yml",
+      "target": ".bits/checks/verify_governance.py",
+      "edge_type": "VERIFIED_BY",
+      "weight": 1.0,
+      "description": ".github/workflows/provenance.yml verified_by .bits/checks/verify_governance.py.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/checks/verify_governance.py",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-GOVERNANCE-001"
+      ],
+      "enum_type": "Test",
+      "functions": [
+        "workflow",
+        "permits_signing",
+        "RecordsTests",
+        "OwnershipTests",
+        "WorkflowTests",
+        "MemoryTests"
+      ],
+      "dependencies": [
+        ".github/workflows/provenance.yml",
+        ".github/CODEOWNERS",
+        ".bits/out/DISP-GOVERNANCE-commerce/memory.json",
+        "__future__",
+        "pathlib",
+        "typing",
+        "json",
+        "os",
+        "re",
+        "subprocess",
+        "tarfile",
+        "tempfile",
+        "unittest",
+        "yaml"
+      ],
+      "lines": 246,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Test the provenance trust boundary and governance record consistency.",
+      "objective_id": "DISP-GOVERNANCE-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-GOVERNANCE-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-GOVERNANCE-001",
+        "governance-provenance"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/checks/verify_governance.py",
+      "target": ".github/workflows/provenance.yml",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": ".bits/checks/verify_governance.py validates .github/workflows/provenance.yml.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".bits/checks/verify_governance.py",
+      "target": ".github/CODEOWNERS",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": ".bits/checks/verify_governance.py validates .github/CODEOWNERS.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".bits/checks/verify_governance.py",
+      "target": ".bits/out/DISP-GOVERNANCE-commerce/memory.json",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": ".bits/checks/verify_governance.py validates .bits/out/DISP-GOVERNANCE-commerce/memory.json.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/out/DISP-GOVERNANCE-commerce/report.md",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-GOVERNANCE-001"
+      ],
+      "enum_type": "Doc",
+      "functions": [],
+      "dependencies": [
+        ".bits/queue/DISP-GOVERNANCE-commerce.md",
+        ".bits/out/DISP-GOVERNANCE-commerce/memory.json"
+      ],
+      "lines": 170,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Separate completed governance implementation from outstanding enablement evidence.",
+      "objective_id": "DISP-GOVERNANCE-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-GOVERNANCE-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-GOVERNANCE-001",
+        "governance-provenance"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/out/DISP-GOVERNANCE-commerce/report.md",
+      "target": ".bits/queue/DISP-GOVERNANCE-commerce.md",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": ".bits/out/DISP-GOVERNANCE-commerce/report.md validates .bits/queue/DISP-GOVERNANCE-commerce.md.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".bits/out/DISP-GOVERNANCE-commerce/report.md",
+      "target": ".bits/out/DISP-GOVERNANCE-commerce/memory.json",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": ".bits/out/DISP-GOVERNANCE-commerce/report.md depends_on .bits/out/DISP-GOVERNANCE-commerce/memory.json.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/out/DISP-GOVERNANCE-commerce/memory.json",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-GOVERNANCE-001"
+      ],
+      "enum_type": "Doc",
+      "functions": [],
+      "dependencies": [
+        ".bits/out/DISP-GOVERNANCE-commerce/report.md"
+      ],
+      "lines": 718,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Preserve file relationships and observed validation evidence for post-merge ingestion.",
+      "objective_id": "DISP-GOVERNANCE-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-GOVERNANCE-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-GOVERNANCE-001",
+        "governance-provenance"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/out/DISP-GOVERNANCE-commerce/memory.json",
+      "target": ".bits/out/DISP-GOVERNANCE-commerce/report.md",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": ".bits/out/DISP-GOVERNANCE-commerce/memory.json depends_on .bits/out/DISP-GOVERNANCE-commerce/report.md.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/out/DISP-GOVERNANCE-commerce/memory.cgrf.yaml",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-GOVERNANCE-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        ".bits/out/DISP-GOVERNANCE-commerce/memory.json"
+      ],
+      "lines": 29,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Supply governance metadata for the JSON memory payload without invalid JSON comments.",
+      "objective_id": "DISP-GOVERNANCE-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-GOVERNANCE-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-GOVERNANCE-001",
+        "governance-provenance"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/out/DISP-GOVERNANCE-commerce/memory.cgrf.yaml",
+      "target": ".bits/out/DISP-GOVERNANCE-commerce/memory.json",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": ".bits/out/DISP-GOVERNANCE-commerce/memory.cgrf.yaml gates .bits/out/DISP-GOVERNANCE-commerce/memory.json.",
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "C",
+      "event_type": "test_pass",
+      "file_path": ".bits/checks/verify_governance.py",
+      "description": "Nine ownership/workflow tests passed, including an offline real npm pack and negative missing-output test.",
+      "caps_before": null,
+      "caps_after": null,
+      "dag_impact": null,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "timestamp": "2026-10-20T17:34:34.883409+00:00",
+      "commit_sha": null,
+      "smoke_result": "9/9"
+    },
+    {
+      "type": "C",
+      "event_type": "test_fail",
+      "file_path": "package.json",
+      "description": "Application baseline blocked: missing lockfile, vitest, ESLint config and tsc; no application edits authorized in this governance dispatch.",
+      "caps_before": null,
+      "caps_after": null,
+      "dag_impact": null,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "timestamp": "2026-10-20T17:34:34.883409+00:00",
+      "commit_sha": null,
+      "smoke_result": "0/4"
+    },
+    {
+      "type": "C",
+      "event_type": "smoke_run",
+      "file_path": ".bits/checks/verify_governance.py",
+      "description": "All four governance phase gates passed: 13 unittest checks covering records, ownership, signing trust boundaries, packaging and memory integrity.",
+      "caps_before": null,
+      "caps_after": null,
+      "dag_impact": null,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "timestamp": "2026-10-20T17:35:58.493525+00:00",
+      "commit_sha": null,
+      "smoke_result": "13/13"
+    },
+    {
+      "type": "C",
+      "event_type": "test_pass",
+      "file_path": ".bits/checks/verify_governance.py",
+      "description": "Operator-confirmed Commerce team ownership and guildmaster app identity applied; all four governance phase gates (13 tests) and strict mypy passed. The app is excluded from CODEOWNERS and is documented as the expected ruleset actor without bypass rights.",
+      "caps_before": null,
+      "caps_after": null,
+      "dag_impact": null,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "timestamp": "2026-10-20T17:39:17.383492+00:00",
+      "commit_sha": null,
+      "smoke_result": "13/13"
+    }
+  ],
+  "summary": {
+    "type_a_count": 13,
+    "type_b_count": 22,
+    "type_c_count": 4,
+    "ioo_compliance": true,
+    "dkg_orphans": 0,
+    "dispatch_id": "DISP-GOVERNANCE-commerce",
+    "srs_codes": [
+      "SRS-CN-COMMERCE-GOVERNANCE-001"
+    ],
+    "seat": "BITS-CODEGEN"
+  }
+}
