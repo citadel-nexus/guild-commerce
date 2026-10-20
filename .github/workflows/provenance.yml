@@ -1,10 +1,10 @@
 # ─── CGRF Header ───────────────────────────────────────────────
 # File:        .github/workflows/provenance.yml
 # Stage:       11_COMMIT
-# SRS:         SRS-CN-COMMERCE-GOVERNANCE-001
+# SRS:         SRS-CN-COMMERCE-BUILD-001
 # CAPS:        pending
 # CK:          pending
-# Dispatch:    DISP-GOVERNANCE-commerce
+# Dispatch:    DISP-BUILD-commerce
 # Seat:        BITS-CODEGEN
 # Owner:       Citadel Nexus Inc.
 # Created:     2026-10-20
@@ -12,7 +12,7 @@
 # EnumType:    Workflow
 # EnumEdges:   PRODUCES commerce-build; PRODUCES commerce-provenance; VERIFIED_BY .bits/checks/verify_governance.py
 # DAG Node:    none
-# Intent:      Bind compiled Commerce artifacts to a trusted main-branch build identity.
+# Intent:      Attest compiled Commerce output and verify the exact downloaded artifact and identity.
 # ───────────────────────────────────────────────────────────────
 
 name: Build provenance — guild-commerce
@@ -57,6 +57,7 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm run lint
+      - run: npm run typecheck
       - run: npm test
       - run: npm run build
       - name: Pack compiled distribution
@@ -80,6 +81,8 @@ jobs:
 
   attest:
     name: Sign build provenance
+    outputs:
+      bundle-id: ${{ steps.bundle.outputs.artifact-id }}
     needs: build
     if: >-
       github.event_name == 'push' &&
@@ -105,9 +108,68 @@ jobs:
         with:
           subject-path: ${{ runner.temp }}/commerce-artifacts/*.tgz
       - name: Retain verification bundle
+        id: bundle
         uses: actions/upload-artifact@v4
         with:
           name: commerce-provenance-${{ github.sha }}
           path: ${{ steps.attest.outputs.bundle-path }}
           if-no-files-found: error
           retention-days: 30
+
+  verify:
+    name: Verify build provenance
+    needs: [build, attest]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+      attestations: read
+    steps:
+      - name: Download the signed build archive
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ needs.build.outputs.artifact-id }}
+          path: ${{ runner.temp }}/verify-build
+          merge-multiple: true
+      - name: Download the matching signature bundle
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ needs.attest.outputs.bundle-id }}
+          path: ${{ runner.temp }}/verify-bundle
+          merge-multiple: true
+      - name: Verify identity and reject tampered artifacts
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          archives=("$RUNNER_TEMP/verify-build/"*.tgz)
+          bundles=("$RUNNER_TEMP/verify-bundle/"*.jsonl)
+          test "${#archives[@]}" -eq 1
+          test "${#bundles[@]}" -eq 1
+          signer="$GITHUB_REPOSITORY/.github/workflows/provenance.yml"
+          verify_artifact() {
+            gh attestation verify "$1" --bundle "${bundles[0]}" \
+              --repo "$GITHUB_REPOSITORY" --source-ref refs/heads/main \
+              --source-digest "$2" --signer-workflow "$3" \
+              --predicate-type https://slsa.dev/provenance/v1 \
+              --deny-self-hosted-runners
+          }
+          verify_artifact "${archives[0]}" "$GITHUB_SHA" "$signer"
+          cp "${archives[0]}" "$RUNNER_TEMP/tampered.tgz"
+          printf 'tampered' >> "$RUNNER_TEMP/tampered.tgz"
+          if verify_artifact "$RUNNER_TEMP/tampered.tgz" "$GITHUB_SHA" "$signer"; then
+            echo 'FAIL: tampered archive was accepted'
+            exit 1
+          fi
+          if verify_artifact "${archives[0]}" '0000000000000000000000000000000000000000' "$signer"; then
+            echo 'FAIL: incorrect source commit was accepted'
+            exit 1
+          fi
+          if verify_artifact "${archives[0]}" "$GITHUB_SHA" "$GITHUB_REPOSITORY/.github/workflows/untrusted.yml"; then
+            echo 'FAIL: incorrect workflow identity was accepted'
+            exit 1
+          fi
+          echo 'PASS: provenance verified; tampering and incorrect identities rejected'

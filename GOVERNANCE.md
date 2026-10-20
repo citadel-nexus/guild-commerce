@@ -2,10 +2,10 @@
 # ─── CGRF Header ───────────────────────────────────────────────
 # File:        GOVERNANCE.md
 # Stage:       06_PLAN
-# SRS:         SRS-CN-COMMERCE-GOVERNANCE-001
+# SRS:         SRS-CN-COMMERCE-BUILD-001
 # CAPS:        pending
 # CK:          pending
-# Dispatch:    DISP-GOVERNANCE-commerce
+# Dispatch:    DISP-BUILD-commerce
 # Seat:        BITS-CODEGEN
 # Owner:       Citadel Nexus Inc.
 # Created:     2026-10-20
@@ -13,7 +13,7 @@
 # EnumType:    Doc
 # EnumEdges:   DEPENDS_ON .github/CODEOWNERS; DEPENDS_ON .github/workflows/provenance.yml
 # DAG Node:    none
-# Intent:      Make Commerce approval authority and artifact trust requirements explicit.
+# Intent:      Document real-build verification and the remaining administrator prerequisites.
 # ───────────────────────────────────────────────────────────────
 -->
 
@@ -92,13 +92,13 @@ Create an active branch ruleset targeting the **default branch**:
   list empty unless the guildmasters group explicitly approves a recorded
   exception. Do not enable merge queue without adding `merge_group` CI support.
 
-The existing security workflow does not run on PRs. Before requiring its
-`codeql` and `secret-scan` contexts, an admin/maintainer must arrange PR coverage
-in a separately authorized change and verify the contexts on a PR head. Likewise,
-repair the missing package lockfile, TypeScript configuration and lint/test
-setup before activating build requirements. These prerequisites are not waived;
-activating checks prematurely will block merges. Do not require the push-only
-`docker`, `release` or `Sign build provenance` jobs as PR checks.
+The build-repair dispatch adds PR coverage for `codeql` and `secret-scan` and
+runs install, lint, source/test typechecking, coverage-gated tests and build in
+CI. Before requiring these contexts, confirm successful PR runs. Dependency
+resolution and a generated lockfile remain blockers until the real SDK and
+toolchain packages are available. Do not waive these prerequisites or enable
+required checks prematurely. Do not require push-only `docker`, `release`,
+`Sign build provenance` or `Verify build provenance` jobs as PR checks.
 
 Enable Actions and allow checkout/setup-node/upload/download-artifact plus
 `actions/attest-build-provenance@v3`. Review action version updates; version tags
@@ -112,7 +112,7 @@ needed. Confirm any organization Actions/attestation policy permits this.
 ## Signed build artifacts
 
 `.github/workflows/provenance.yml` runs governance validation and the existing
-Node 20 install/lint/test/build sequence on PRs and pushes to `main`. Its build
+Node 20 install/lint/typecheck/test/build sequence on PRs and pushes to `main`. Its build
 job has read-only repository access and uploads only an npm `.tgz` assembled
 from compiled `dist/` and `package.json`. It does not run package lifecycle
 scripts during packing or include the checkout, `.env`, governance records,
@@ -137,8 +137,9 @@ workflow's attestation; do not infer their provenance from this archive.
 This is build provenance, not a certified SLSA level or proof of safe code.
 Same-repository workflow changes are within the trust boundary. Required owner
 review and protected signed history must be enabled to enforce that boundary.
-The repository currently lacks build prerequisites; signing fails closed until
-a separately authorized change repairs them and all build checks succeed.
+The build-repair dispatch supplies strict TypeScript, ESLint and Vitest
+configuration. Real dependency resolution and a generated lockfile remain
+required; signing fails closed until npm ci and all build checks succeed.
 
 ## Verify before using an artifact
 
@@ -182,3 +183,47 @@ original with a different expected source SHA and a different signer-workflow;
 both must fail. Do not deploy or execute an artifact as part of these tests.
 These live OIDC/transparency/verification tests must run on GitHub after merge;
 local static checks cannot demonstrate issuance or signature verification.
+
+## Automated end-to-end verification
+
+After signing, the read-only `Verify build provenance` job downloads the build
+archive and signature bundle by their immutable IDs from the same run. It runs
+`gh attestation verify` with the repository, main ref, source commit, signer
+workflow, SLSA predicate and hosted-runner constraints documented above. It then
+requires rejection of a tampered copy, an incorrect source SHA and an incorrect
+workflow identity. The verifier never executes the downloaded archive and has
+no signing permissions. Failure to verify the original fails the job.
+
+Local fixture tests validate shell control flow and policy arguments only; they
+do not prove cryptographic verification. Live OIDC issuance, transparency service
+access and verification remain unexecuted until a successful main push and admin
+enablement. The build-repair report is .bits/out/DISP-BUILD-commerce/report.md.
+
+Pending admin actions: activate branch protection/code-owner review/signed
+commits/required checks, and permit Actions attestation and OIDC permissions.
+The operator-confirmed Alex team/app mapping needs no reconfirmation. No settings
+or secrets were changed in this dispatch.
+
+## Build-repair validation
+
+The package declares its TypeScript/ESLint/Vitest dependencies and preserves the
+real SDK and NATS dependencies. There is no SDK shim or alternate implementation.
+The lockfile could not be generated offline because `@citadel-guilds/sdk` is not
+cached; its approved registry location and package access must be established.
+Do not merge this repair as a green build until dependency resolution succeeds,
+a generated lockfile is reviewed, and these commands pass:
+
+```bash
+npm ci
+npm run lint
+npm run typecheck
+npm test
+npm run build
+```
+
+`npm test` enforces 80% lines/branches/functions/statements across all source
+files. Tests mock SDK/NATS network boundaries and do not contact production.
+The build includes every source file and excludes tests from the distribution.
+Local lint passed using preinstalled ESLint/parser tools, not a successful npm
+install. Typecheck, tests and build are dependency-blocked. No application
+coverage result or successful live signed build is claimed.

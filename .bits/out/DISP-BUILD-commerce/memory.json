@@ -1,0 +1,1284 @@
+{
+  "entries": [
+    {
+      "type": "A",
+      "file_path": "AGENTS.md",
+      "cket_stage": "04_HYPOTHESIZE",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        ".bits/queue/DISP-BUILD-commerce.md"
+      ],
+      "lines": 52,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Keep Commerce build repair within the active operator authorization.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "AGENTS.md",
+      "target": ".bits/queue/DISP-BUILD-commerce.md",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": "AGENTS.md depends_on .bits/queue/DISP-BUILD-commerce.md.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": "CLAUDE.md",
+      "cket_stage": "04_HYPOTHESIZE",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        "AGENTS.md",
+        "GOVERNANCE.md"
+      ],
+      "lines": 31,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Give seats the authorized Commerce build-repair scope.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "CLAUDE.md",
+      "target": "AGENTS.md",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": "CLAUDE.md depends_on AGENTS.md.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": "CLAUDE.md",
+      "target": "GOVERNANCE.md",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": "CLAUDE.md depends_on GOVERNANCE.md.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/context.md",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        ".bits/queue/DISP-BUILD-commerce.md"
+      ],
+      "lines": 38,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Identify the separate authorized build repair and its baseline.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/context.md",
+      "target": ".bits/queue/DISP-BUILD-commerce.md",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": ".bits/context.md depends_on .bits/queue/DISP-BUILD-commerce.md.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/srs_registry.yml",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        ".bits/srs/SRS-CN-COMMERCE-BUILD-001.md"
+      ],
+      "lines": 86,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Register the separate operator-authorized Commerce build repair.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/srs_registry.yml",
+      "target": ".bits/srs/SRS-CN-COMMERCE-BUILD-001.md",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": ".bits/srs_registry.yml gates .bits/srs/SRS-CN-COMMERCE-BUILD-001.md.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/srs/SRS-CN-COMMERCE-BUILD-001.md",
+      "cket_stage": "04_HYPOTHESIZE",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "Doc",
+      "functions": [],
+      "dependencies": [
+        "package.json",
+        ".github/workflows/provenance.yml"
+      ],
+      "lines": 46,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Define build repair without weakening application or provenance checks.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/srs/SRS-CN-COMMERCE-BUILD-001.md",
+      "target": "package.json",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": ".bits/srs/SRS-CN-COMMERCE-BUILD-001.md gates package.json.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".bits/srs/SRS-CN-COMMERCE-BUILD-001.md",
+      "target": ".github/workflows/provenance.yml",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": ".bits/srs/SRS-CN-COMMERCE-BUILD-001.md gates .github/workflows/provenance.yml.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/queue/DISP-BUILD-commerce.md",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "Doc",
+      "functions": [],
+      "dependencies": [
+        ".bits/srs/SRS-CN-COMMERCE-BUILD-001.md",
+        ".bits/checks/verify_governance.py"
+      ],
+      "lines": 66,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Bind build-repair work and validation to the operator directive.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/queue/DISP-BUILD-commerce.md",
+      "target": ".bits/srs/SRS-CN-COMMERCE-BUILD-001.md",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": ".bits/queue/DISP-BUILD-commerce.md gates .bits/srs/SRS-CN-COMMERCE-BUILD-001.md.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".bits/queue/DISP-BUILD-commerce.md",
+      "target": ".bits/checks/verify_governance.py",
+      "edge_type": "VERIFIED_BY",
+      "weight": 1.0,
+      "description": ".bits/queue/DISP-BUILD-commerce.md verified_by .bits/checks/verify_governance.py.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": "package.json",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        "tsconfig.json",
+        "vitest.config.ts",
+        "eslint.config.js"
+      ],
+      "lines": 30,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Declare the real build and test toolchain for reproducible Commerce validation.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "package.json",
+      "target": "tsconfig.json",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": "package.json depends_on tsconfig.json.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": "package.json",
+      "target": "vitest.config.ts",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": "package.json depends_on vitest.config.ts.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": "package.json",
+      "target": "eslint.config.js",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": "package.json depends_on eslint.config.js.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": "package.cgrf.yaml",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        "package.json"
+      ],
+      "lines": 20,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Provide CGRF metadata for package.json.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "package.cgrf.yaml",
+      "target": "package.json",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": "package.cgrf.yaml gates package.json.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": "tsconfig.json",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        "package.json"
+      ],
+      "lines": 24,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Compile the complete Commerce source tree with strict checks.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "tsconfig.json",
+      "target": "package.json",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": "tsconfig.json gates package.json.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": "tsconfig.cgrf.yaml",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        "tsconfig.json"
+      ],
+      "lines": 20,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Provide CGRF metadata for tsconfig.json.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "tsconfig.cgrf.yaml",
+      "target": "tsconfig.json",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": "tsconfig.cgrf.yaml gates tsconfig.json.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": "tsconfig.test.json",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        "tsconfig.json"
+      ],
+      "lines": 12,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Typecheck test fixtures as well as production imports without emitting them.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "tsconfig.test.json",
+      "target": "tsconfig.json",
+      "edge_type": "EXTENDS",
+      "weight": 1.0,
+      "description": "tsconfig.test.json extends tsconfig.json.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": "tsconfig.test.cgrf.yaml",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        "tsconfig.test.json"
+      ],
+      "lines": 20,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Provide CGRF metadata for tsconfig.test.json.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "tsconfig.test.cgrf.yaml",
+      "target": "tsconfig.test.json",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": "tsconfig.test.cgrf.yaml gates tsconfig.test.json.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": "eslint.config.js",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        "src/index.ts",
+        "tests/commerce.test.ts",
+        "@typescript-eslint/parser",
+        "@typescript-eslint/eslint-plugin"
+      ],
+      "lines": 34,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Lint TypeScript source and tests without suppressing unused values.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "eslint.config.js",
+      "target": "src/index.ts",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": "eslint.config.js validates src/index.ts.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": "eslint.config.js",
+      "target": "tests/commerce.test.ts",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": "eslint.config.js validates tests/commerce.test.ts.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": "vitest.config.ts",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        "tests/commerce.test.ts",
+        "vitest/config"
+      ],
+      "lines": 30,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Require meaningful source coverage and fail when application tests are absent.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "vitest.config.ts",
+      "target": "tests/commerce.test.ts",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": "vitest.config.ts validates tests/commerce.test.ts.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".gitignore",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        "package.json"
+      ],
+      "lines": 26,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Keep generated dependencies and local environment files out of reviews.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".gitignore",
+      "target": "package.json",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": ".gitignore gates package.json.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".dockerignore",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        "docker/Dockerfile"
+      ],
+      "lines": 25,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Keep local artifacts and credentials out of Docker build contexts.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".dockerignore",
+      "target": "docker/Dockerfile",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": ".dockerignore gates docker/Dockerfile.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": "tests/commerce.test.ts",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "Test",
+      "functions": [
+        "messages"
+      ],
+      "dependencies": [
+        "src/index.ts",
+        "src/routes/health.ts",
+        "src/automation/nats-listener.ts",
+        "src/automation/cml-bridge.ts",
+        "vitest",
+        "../src/routes/health.js",
+        "../src/automation/nats-listener.js",
+        "../src/automation/cml-bridge.js"
+      ],
+      "lines": 147,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Verify startup and message contracts without production connections.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "tests/commerce.test.ts",
+      "target": "src/index.ts",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": "tests/commerce.test.ts validates src/index.ts.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": "tests/commerce.test.ts",
+      "target": "src/routes/health.ts",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": "tests/commerce.test.ts validates src/routes/health.ts.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": "tests/commerce.test.ts",
+      "target": "src/automation/nats-listener.ts",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": "tests/commerce.test.ts validates src/automation/nats-listener.ts.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": "tests/commerce.test.ts",
+      "target": "src/automation/cml-bridge.ts",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": "tests/commerce.test.ts validates src/automation/cml-bridge.ts.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".github/workflows/ci.yml",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "Workflow",
+      "functions": [],
+      "dependencies": [
+        "package.json",
+        "docker/Dockerfile"
+      ],
+      "lines": 56,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Gate Commerce builds on the complete toolchain while preserving fixed Docker expressions.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".github/workflows/ci.yml",
+      "target": "package.json",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": ".github/workflows/ci.yml validates package.json.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".github/workflows/ci.yml",
+      "target": "docker/Dockerfile",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": ".github/workflows/ci.yml depends_on docker/Dockerfile.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".github/workflows/security-scan.yml",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "Workflow",
+      "functions": [],
+      "dependencies": [
+        "src/index.ts"
+      ],
+      "lines": 59,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Retain CodeQL and secret scanning and expose their checks on pull requests.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".github/workflows/security-scan.yml",
+      "target": "src/index.ts",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": ".github/workflows/security-scan.yml validates src/index.ts.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".github/workflows/provenance.yml",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "Workflow",
+      "functions": [],
+      "dependencies": [
+        "commerce-build",
+        "commerce-provenance",
+        ".bits/checks/verify_governance.py"
+      ],
+      "lines": 175,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Attest compiled Commerce output and verify the exact downloaded artifact and identity.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".github/workflows/provenance.yml",
+      "target": "commerce-build",
+      "edge_type": "PRODUCES",
+      "weight": 1.0,
+      "description": ".github/workflows/provenance.yml produces commerce-build.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".github/workflows/provenance.yml",
+      "target": "commerce-provenance",
+      "edge_type": "PRODUCES",
+      "weight": 1.0,
+      "description": ".github/workflows/provenance.yml produces commerce-provenance.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".github/workflows/provenance.yml",
+      "target": ".bits/checks/verify_governance.py",
+      "edge_type": "VERIFIED_BY",
+      "weight": 1.0,
+      "description": ".github/workflows/provenance.yml verified_by .bits/checks/verify_governance.py.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/checks/verify_governance.py",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "Test",
+      "functions": [
+        "workflow",
+        "permits_signing",
+        "RecordsTests",
+        "OwnershipTests",
+        "WorkflowTests",
+        "BuildTests",
+        "MemoryTests"
+      ],
+      "dependencies": [
+        ".github/workflows/provenance.yml",
+        ".github/CODEOWNERS",
+        ".bits/out/DISP-BUILD-commerce/memory.json",
+        "__future__",
+        "pathlib",
+        "typing",
+        "json",
+        "os",
+        "re",
+        "subprocess",
+        "tarfile",
+        "tempfile",
+        "unittest",
+        "yaml"
+      ],
+      "lines": 333,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Retain governance checks and test the build and verifier trust boundaries.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/checks/verify_governance.py",
+      "target": ".github/workflows/provenance.yml",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": ".bits/checks/verify_governance.py validates .github/workflows/provenance.yml.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".bits/checks/verify_governance.py",
+      "target": ".github/CODEOWNERS",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": ".bits/checks/verify_governance.py validates .github/CODEOWNERS.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".bits/checks/verify_governance.py",
+      "target": ".bits/out/DISP-BUILD-commerce/memory.json",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": ".bits/checks/verify_governance.py validates .bits/out/DISP-BUILD-commerce/memory.json.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": "GOVERNANCE.md",
+      "cket_stage": "06_PLAN",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "Doc",
+      "functions": [],
+      "dependencies": [
+        ".github/CODEOWNERS",
+        ".github/workflows/provenance.yml"
+      ],
+      "lines": 229,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Document real-build verification and the remaining administrator prerequisites.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": "GOVERNANCE.md",
+      "target": ".github/CODEOWNERS",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": "GOVERNANCE.md depends_on .github/CODEOWNERS.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": "GOVERNANCE.md",
+      "target": ".github/workflows/provenance.yml",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": "GOVERNANCE.md depends_on .github/workflows/provenance.yml.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/out/DISP-BUILD-commerce/report.md",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "Doc",
+      "functions": [],
+      "dependencies": [
+        ".bits/queue/DISP-BUILD-commerce.md",
+        ".bits/out/DISP-BUILD-commerce/memory.json"
+      ],
+      "lines": 149,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Record completed build repair and unresolved dependency and admin acceptance.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/out/DISP-BUILD-commerce/report.md",
+      "target": ".bits/queue/DISP-BUILD-commerce.md",
+      "edge_type": "VALIDATES",
+      "weight": 1.0,
+      "description": ".bits/out/DISP-BUILD-commerce/report.md validates .bits/queue/DISP-BUILD-commerce.md.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "B",
+      "source": ".bits/out/DISP-BUILD-commerce/report.md",
+      "target": ".bits/out/DISP-BUILD-commerce/memory.json",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": ".bits/out/DISP-BUILD-commerce/report.md depends_on .bits/out/DISP-BUILD-commerce/memory.json.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/out/DISP-BUILD-commerce/memory.json",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "Doc",
+      "functions": [],
+      "dependencies": [
+        ".bits/out/DISP-BUILD-commerce/report.md"
+      ],
+      "lines": 1284,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Preserve build-repair file relationships and observed validation evidence.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/out/DISP-BUILD-commerce/memory.json",
+      "target": ".bits/out/DISP-BUILD-commerce/report.md",
+      "edge_type": "DEPENDS_ON",
+      "weight": 1.0,
+      "description": ".bits/out/DISP-BUILD-commerce/memory.json depends_on .bits/out/DISP-BUILD-commerce/report.md.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "A",
+      "file_path": ".bits/out/DISP-BUILD-commerce/memory.cgrf.yaml",
+      "cket_stage": "11_COMMIT",
+      "srs_codes": [
+        "SRS-CN-COMMERCE-BUILD-001"
+      ],
+      "enum_type": "ConfigDoc",
+      "functions": [],
+      "dependencies": [
+        ".bits/out/DISP-BUILD-commerce/memory.json"
+      ],
+      "lines": 20,
+      "caps_grade": "pending",
+      "ck_stamp": "pending",
+      "intent_statement": "Provide CGRF metadata for .bits/out/DISP-BUILD-commerce/memory.json.",
+      "objective_id": "DISP-BUILD-commerce",
+      "outcome": "stored",
+      "supersedes": false,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "seat": "BITS-CODEGEN",
+      "domain": "engineering",
+      "source_type": "seat_dispatch",
+      "tags": [
+        "DISP-BUILD-commerce",
+        "BITS-CODEGEN",
+        "SRS-CN-COMMERCE-BUILD-001",
+        "build-repair"
+      ],
+      "tenant_id": null
+    },
+    {
+      "type": "B",
+      "source": ".bits/out/DISP-BUILD-commerce/memory.cgrf.yaml",
+      "target": ".bits/out/DISP-BUILD-commerce/memory.json",
+      "edge_type": "GATES",
+      "weight": 1.0,
+      "description": ".bits/out/DISP-BUILD-commerce/memory.cgrf.yaml gates .bits/out/DISP-BUILD-commerce/memory.json.",
+      "dispatch_id": "DISP-BUILD-commerce",
+      "created_by": "BITS-CODEGEN"
+    },
+    {
+      "type": "C",
+      "event_type": "test_pass",
+      "file_path": ".bits/checks/verify_governance.py",
+      "description": "13 ownership/workflow/build-policy tests and strict mypy passed before final metadata gates; includes positive and negative verification orchestration fixtures, not live cryptography.",
+      "caps_before": null,
+      "caps_after": null,
+      "dag_impact": null,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "timestamp": "2026-10-20T17:59:20.694626+00:00",
+      "commit_sha": null,
+      "smoke_result": "13/13"
+    },
+    {
+      "type": "C",
+      "event_type": "test_fail",
+      "file_path": "package.json",
+      "description": "Lockfile generation blocked by uncached real SDK. npm ci/typecheck/test/build dependency-blocked; lint passed using preinstalled tools, not npm ci.",
+      "caps_before": null,
+      "caps_after": null,
+      "dag_impact": null,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "timestamp": "2026-10-20T17:59:20.694626+00:00",
+      "commit_sha": null,
+      "smoke_result": "1/5"
+    },
+    {
+      "type": "C",
+      "event_type": "smoke_run",
+      "file_path": ".bits/checks/verify_governance.py",
+      "description": "All five governance/build-policy phase gates passed: 17 tests. Application validation remains dependency-blocked; no production changes or live signing performed.",
+      "caps_before": null,
+      "caps_after": null,
+      "dag_impact": null,
+      "dispatch_id": "DISP-BUILD-commerce",
+      "timestamp": "2026-10-20T17:59:53.385913+00:00",
+      "commit_sha": null,
+      "smoke_result": "17/17"
+    }
+  ],
+  "summary": {
+    "type_a_count": 25,
+    "type_b_count": 41,
+    "type_c_count": 3,
+    "ioo_compliance": true,
+    "dkg_orphans": 0,
+    "dispatch_id": "DISP-BUILD-commerce",
+    "srs_codes": [
+      "SRS-CN-COMMERCE-BUILD-001"
+    ],
+    "seat": "BITS-CODEGEN"
+  }
+}

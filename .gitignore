@@ -1,0 +1,26 @@
+# ─── CGRF Header ───────────────────────────────────────────────
+# File:        .gitignore
+# Stage:       11_COMMIT
+# SRS:         SRS-CN-COMMERCE-BUILD-001
+# CAPS:        pending
+# CK:          pending
+# Dispatch:    DISP-BUILD-commerce
+# Seat:        BITS-CODEGEN
+# Owner:       Citadel Nexus Inc.
+# Created:     2026-10-20
+# Depends:     package.json
+# EnumType:    ConfigDoc
+# EnumEdges:   GATES package.json
+# DAG Node:    none
+# Intent:      Keep generated dependencies and local environment files out of reviews.
+# ───────────────────────────────────────────────────────────────
+
+node_modules/
+dist/
+coverage/
+.mypy_cache/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example

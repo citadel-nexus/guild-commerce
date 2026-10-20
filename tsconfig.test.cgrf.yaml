@@ -1,0 +1,20 @@
+# ─── CGRF Header ───────────────────────────────────────────────
+# File:        tsconfig.test.cgrf.yaml
+# Stage:       11_COMMIT
+# SRS:         SRS-CN-COMMERCE-BUILD-001
+# CAPS:        pending
+# CK:          pending
+# Dispatch:    DISP-BUILD-commerce
+# Seat:        BITS-CODEGEN
+# Owner:       Citadel Nexus Inc.
+# Created:     2026-10-20
+# Depends:     tsconfig.test.json
+# EnumType:    ConfigDoc
+# EnumEdges:   GATES tsconfig.test.json
+# DAG Node:    none
+# Intent:      Provide CGRF metadata for tsconfig.test.json.
+# ───────────────────────────────────────────────────────────────
+
+file: tsconfig.test.json
+intent_statement: Typecheck test fixtures as well as production imports without emitting them.
+enum_edges: EXTENDS tsconfig.json

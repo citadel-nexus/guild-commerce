@@ -2,10 +2,10 @@
 # ─── CGRF Header ───────────────────────────────────────────────
 # File:        CLAUDE.md
 # Stage:       04_HYPOTHESIZE
-# SRS:         SRS-CN-COMMERCE-GOVERNANCE-001
+# SRS:         SRS-CN-COMMERCE-BUILD-001
 # CAPS:        pending
 # CK:          pending
-# Dispatch:    DISP-GOVERNANCE-commerce
+# Dispatch:    DISP-BUILD-commerce
 # Seat:        BITS-CODEGEN
 # Owner:       Citadel Nexus Inc.
 # Created:     2026-10-20
@@ -13,22 +13,19 @@
 # EnumType:    ConfigDoc
 # EnumEdges:   DEPENDS_ON AGENTS.md; DEPENDS_ON GOVERNANCE.md
 # DAG Node:    none
-# Intent:      Give IDE seats a shared boundary for the Commerce governance bootstrap.
+# Intent:      Give seats the authorized Commerce build-repair scope.
 # ───────────────────────────────────────────────────────────────
 -->
 
 # Commerce Guild seat context
 
-Commerce owns sales and onboarding: Scope Sheet Pro, leads, walk-in, CTA and
-provisioning. Alex (GitLab `alex`) is guildmaster; `guild-commerce` is the
-Datadog team handle. The operator confirmed GitHub owner team
-`@citadel-nexus/guild-commerce` and Alex's automation identity, GitHub App
-`alex-commerce-guildmaster`, through that team's links. The team owns reviews;
-GitHub Apps cannot be code owners.
+Commerce owns sales/onboarding: Scope Sheet Pro, leads, walk-in, CTA and
+provisioning. Alex (GitLab `alex`) is guildmaster. GitHub team
+`@citadel-nexus/guild-commerce` owns reviews; GitHub App
+`alex-commerce-guildmaster` is his automation identity. Datadog: `guild-commerce`.
 
-Start with AGENTS.md and .bits/context.md. This staging bootstrap establishes
-ownership and signed build provenance; application repair, deployment, account
-provisioning and GitHub settings changes require separate authorization.
-Escalate cross-guild decisions and unresolved approvals to the guildmasters
-group. The guild charter and administrator enablement checklist are in
-GOVERNANCE.md. Record cross-seat requests as handoffs, not private-stack edits.
+SRS-CN-COMMERCE-BUILD-001 and DISP-BUILD-commerce authorize the staging build
+repair after governance PR #18. Read AGENTS.md and .bits/context.md. Restore the
+real package toolchain and signed-artifact verification without deployments,
+settings changes or fabricated SDKs. Escalate cross-guild decisions to the
+guildmasters group. The charter and pending admin requirements are in GOVERNANCE.md.

@@ -2,39 +2,37 @@
 # ─── CGRF Header ───────────────────────────────────────────────
 # File:        .bits/context.md
 # Stage:       11_COMMIT
-# SRS:         SRS-CN-COMMERCE-GOVERNANCE-001
+# SRS:         SRS-CN-COMMERCE-BUILD-001
 # CAPS:        pending
 # CK:          pending
-# Dispatch:    DISP-GOVERNANCE-commerce
+# Dispatch:    DISP-BUILD-commerce
 # Seat:        BITS-CODEGEN
 # Owner:       Citadel Nexus Inc.
 # Created:     2026-10-20
-# Depends:     .bits/queue/DISP-GOVERNANCE-commerce.md
+# Depends:     .bits/queue/DISP-BUILD-commerce.md
 # EnumType:    ConfigDoc
-# EnumEdges:   DEPENDS_ON .bits/queue/DISP-GOVERNANCE-commerce.md
+# EnumEdges:   DEPENDS_ON .bits/queue/DISP-BUILD-commerce.md
 # DAG Node:    none
-# Intent:      Identify the active staging dispatch without authorizing unrelated work.
+# Intent:      Identify the separate authorized build repair and its baseline.
 # ───────────────────────────────────────────────────────────────
 -->
 
 # Active staging context
 
-- SRS: SRS-CN-COMMERCE-GOVERNANCE-001
-- Dispatch: DISP-GOVERNANCE-commerce (`in_progress`)
-- Authorization: authenticated operator directive in the queue record.
-- Guildmaster: Alex (GitLab `alex`); Datadog team: `guild-commerce`.
-- Target: default branch `main`, through one reviewable PR only.
-- CKS gate: B+/75; CKS, CAPS and CK: pending. CAPS minimum has not been
-  supplied by the operator; do not invent a numeric threshold.
+- SRS: SRS-CN-COMMERCE-BUILD-001
+- Dispatch: DISP-BUILD-commerce (`in_progress`)
+- Operator: Dmitry Richard, mr.nobody@citadel-nexus.com; seat BITS-CODEGEN.
+- Branch: bits/SRS-CN-COMMERCE-BUILD-001-repair
+- Base: 15c62810b6baf379b54d850cac9210f39719b92f (verified origin/main).
+- Scope: lockfile, TypeScript, ESLint, Vitest, CI and real-build provenance verification.
+- CKS gate: B+/75; CKS/CAPS/CK and CAPS minimum: pending.
 
-The living-world SRS remains planned and its dispatch queued. Do not execute it.
-Keep existing application behavior and release publishing unchanged. Missing
-lockfile/compiler/test/lint setup is an application prerequisite for provenance
-builds, not authorization to expand this governance dispatch.
+PR #18 merged governance. PR #16 subsequently repaired the TypeScript syntax
+and Docker login expressions. Preserve those fixes; do not duplicate them.
+Living-world work remains outside this dispatch. Previous governance memory is
+historical; validate current-file metadata through this dispatch's payload.
 
-No issue-specific Memory Brief was supplied. The linked Bits conversation
-contains the request for guild governance/provenance, not prior governance
-implementation details. Sibling conventions could not be checked: the managed
-attachment of the README-referenced guild-sdk repository was rejected by the
-public/private session boundary. Use this repository's existing flat SRS
-registry and queue conventions and record that limitation.
+No production/deploy, push to main, GitHub settings or secrets changes.
+Branch protection and OIDC/attestation permissions are admin-only pending actions.
+No new issue Memory Brief was supplied; the operator's directive is recorded in
+the queue. Dependency resolution must use real registry data, not a guessed SDK.
