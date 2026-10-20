@@ -72,6 +72,9 @@ SRS-CN-COMMERCE-BUILD-001:
     - tests/
     - .gitignore
     - .dockerignore
+    - .nvmrc
+    - .github/BUILD.md
+    - .github/workflows/lockfile-refresh.yml
     - .github/workflows/ci.yml
     - .github/workflows/security-scan.yml
     - .github/workflows/provenance.yml

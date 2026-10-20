@@ -74,7 +74,7 @@ class RecordsTests(unittest.TestCase):
             if entry['type'] != 'A':
                 continue
             path = ROOT / entry['file_path']
-            header_path = path.with_suffix('.cgrf.yaml') if path.suffix == '.json' else path
+            header_path = (ROOT / '.nvmrc.cgrf.yaml') if path.name == '.nvmrc' else (path.with_suffix('.cgrf.yaml') if path.suffix == '.json' else path)
             header = header_path.read_text().split('# ───────────────────────────────────────────────────────────────', 1)[0]
             for field, value in (('SRS', SRS), ('Dispatch', DISPATCH), ('Owner', 'Citadel Nexus Inc.'),
                                  ('CK', 'pending'), ('CAPS', 'pending')):
@@ -284,6 +284,100 @@ sys.exit(0 if valid else 1)
             self.assertNotEqual(result.returncode, 0)
 
 
+class LockfileTests(unittest.TestCase):
+    def load_refresh(self) -> dict[str, Any]:
+        return cast(dict[str, Any], yaml.load((ROOT / '.github/workflows/lockfile-refresh.yml').read_text(), Loader=yaml.BaseLoader))
+
+    def test_manual_default_branch_and_pinned_actions(self) -> None:
+        config = self.load_refresh()
+        self.assertEqual(set(config['on']), {'workflow_dispatch'})
+        self.assertEqual(config['permissions'], {})
+        self.assertEqual(config['concurrency']['cancel-in-progress'], 'false')
+        guard = config['jobs']['validate']['if']
+        self.assertIn("github.repository == 'citadel-nexus/guild-commerce'", guard)
+        self.assertIn("github.ref == format('refs/heads/{0}', github.event.repository.default_branch)", guard)
+        for job in config['jobs'].values():
+            self.assertNotIn('continue-on-error', job)
+            for step in job['steps']:
+                self.assertNotIn('continue-on-error', step)
+                if 'uses' in step:
+                    self.assertRegex(step['uses'], r'^[a-zA-Z0-9_/-]+@[a-f0-9]{40}$')
+
+    def test_package_auth_and_write_permissions_are_separated(self) -> None:
+        jobs = self.load_refresh()['jobs']
+        self.assertEqual(jobs['validate']['permissions'], {'contents': 'read', 'packages': 'read'})
+        self.assertEqual(jobs['propose']['permissions'], {'contents': 'write', 'pull-requests': 'write'})
+        self.assertEqual(jobs['propose']['needs'], 'validate')
+        self.assertNotIn('if', jobs['propose'])
+        setup = next(s for s in jobs['validate']['steps'] if s.get('uses', '').startswith('actions/setup-node@'))
+        self.assertEqual(setup['with'], {'node-version-file': '.nvmrc', 'registry-url': 'https://npm.pkg.github.com', 'scope': '@citadel-guilds'})
+        self.assertEqual((ROOT / '.nvmrc').read_text().strip(), '20')
+        for step in jobs['validate']['steps']:
+            if step.get('run', '').startswith('npm '):
+                self.assertEqual(step['env']['NODE_AUTH_TOKEN'], '${{ github.token }}')
+        for job in jobs.values():
+            checkout = next(s for s in job['steps'] if s.get('uses', '').startswith('actions/checkout@'))
+            self.assertEqual(checkout['with']['persist-credentials'], 'false')
+            self.assertEqual(checkout['with']['ref'], '${{ github.sha }}')
+
+    def test_all_five_npm_gates_fail_closed(self) -> None:
+        commands = [s['run'] for s in self.load_refresh()['jobs']['validate']['steps'] if s.get('run', '').startswith('npm ')]
+        self.assertEqual(commands[0], 'npm install --package-lock-only --ignore-scripts')
+        self.assertEqual(commands[1], 'npm ci && npm run lint && npm run typecheck && npm test && npm run build')
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fake = root / 'npm'
+            fake.write_text('#!/bin/sh\nprintf "%s\\n" "$*" >> "$CALL_LOG"\n[ "$*" != "$FAIL_COMMAND" ]\n')
+            fake.chmod(0o755)
+            sequence = ['ci', 'run lint', 'run typecheck', 'test', 'run build']
+            for failure in ['', *sequence]:
+                log = root / 'calls'
+                log.write_text('')
+                result = subprocess.run(['bash', '-c', commands[1]], env={**os.environ, 'PATH': directory + os.pathsep + os.environ['PATH'], 'CALL_LOG': str(log), 'FAIL_COMMAND': failure}, capture_output=True, text=True)
+                expected = sequence if not failure else sequence[:sequence.index(failure) + 1]
+                self.assertEqual(log.read_text().splitlines(), expected)
+                self.assertEqual(result.returncode, 0 if not failure else 1)
+
+    def test_publication_uses_only_same_run_evidence_and_a_fixed_nondefault_branch(self) -> None:
+        jobs = self.load_refresh()['jobs']
+        steps = jobs['propose']['steps']
+        download = next(s for s in steps if s.get('uses', '').startswith('actions/download-artifact@'))
+        self.assertEqual(download['with']['artifact-ids'], '${{ needs.validate.outputs.artifact-id }}')
+        self.assertNotIn('run-id', download['with'])
+        self.assertNotIn('repository', download['with'])
+        command = next(s['run'] for s in steps if 'run' in s)
+        self.assertIn('branch=bits/lockfile-refresh', command)
+        self.assertIn('test "$branch" != "$BASE_BRANCH"', command)
+        self.assertIn('git push origin "HEAD:refs/heads/$branch"', command)
+        self.assertNotIn('--force', command)
+        self.assertIn('git ls-files --error-unmatch package-lock.json', command)
+        self.assertIn('git diff --quiet -- package-lock.json', command)
+        self.assertNotIn('gh pr merge', command)
+        self.assertNotRegex(command.split("cat >", 1)[0], r'(?m)(?:^|&&|\|\||;)\s*(?:npm|npx|node)\s')
+        self.assertIn('--body-file "$RUNNER_TEMP/lockfile-pr.md"', command)
+        self.assertIn('git add -- package-lock.json .bits/out/DISP-BUILD-commerce/memory.json .bits/out/DISP-BUILD-commerce/report.md', command)
+        for job in jobs.values():
+            for step in job['steps']:
+                if step.get('shell') == 'python':
+                    compile(step['run'], '<record-lockfile-evidence>', 'exec')
+                elif step.get('shell') == 'bash':
+                    result = subprocess.run(['bash', '-n'], input=step['run'], text=True, capture_output=True)
+                    self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_existing_refresh_branch_is_not_overwritten(self) -> None:
+        script = next(s['run'] for s in self.load_refresh()['jobs']['propose']['steps'] if 'run' in s)
+        guard = script.split('          test -s', 1)[0] if '          test -s' in script else script.split('test -s', 1)[0]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'git').write_text('#!/bin/sh\n[ "$1" = ls-remote ] || exit 99\nprintf "existing-ref\\n"\n')
+            (root / 'gh').write_text('#!/bin/sh\n[ "$*" = "auth setup-git" ] || exit 99\n')
+            for name in ('git', 'gh'):
+                (root / name).chmod(0o755)
+            result = subprocess.run(['bash', '-c', guard], env={**os.environ, 'PATH': directory + os.pathsep + os.environ['PATH'], 'BASE_BRANCH': 'main'}, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 1)
+            self.assertIn('No branch was overwritten', result.stdout)
+
+
 class MemoryTests(unittest.TestCase):
     def test_counts_ioo_and_no_orphans(self) -> None:
         payload = json.loads((OUT / 'memory.json').read_text())
@@ -316,8 +410,9 @@ class MemoryTests(unittest.TestCase):
             if entry['type'] != 'A':
                 continue
             path = ROOT / entry['file_path']
-            if path.suffix == '.json':
-                companion = yaml.safe_load(path.with_suffix('.cgrf.yaml').read_text())
+            if path.suffix == '.json' or path.name == '.nvmrc':
+                companion_path = ROOT / '.nvmrc.cgrf.yaml' if path.name == '.nvmrc' else path.with_suffix('.cgrf.yaml')
+                companion = yaml.safe_load(companion_path.read_text())
                 declarations = companion['enum_edges']
             else:
                 match = re.search(r'^(?:#|//) EnumEdges:\s+(.+)$', path.read_text(), re.MULTILINE)

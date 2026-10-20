@@ -1,0 +1,20 @@
+# ─── CGRF Header ───────────────────────────────────────────────
+# File:        package-lock.cgrf.yaml
+# Stage:       11_COMMIT
+# SRS:         SRS-CN-COMMERCE-BUILD-001
+# CAPS:        pending
+# CK:          pending
+# Dispatch:    DISP-BUILD-commerce
+# Seat:        BITS-CODEGEN
+# Owner:       Citadel Nexus Inc.
+# Created:     2026-10-20
+# Depends:     package-lock.json
+# EnumType:    ConfigDoc
+# EnumEdges:   GATES package-lock.json
+# DAG Node:    none
+# Intent:      Provide governance metadata for the future registry-generated lockfile.
+# ───────────────────────────────────────────────────────────────
+
+file: package-lock.json
+intent_statement: Record the real resolved Commerce dependency graph for reproducible installs.
+enum_edges: DEPENDS_ON package.json

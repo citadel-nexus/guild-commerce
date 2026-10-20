@@ -41,6 +41,11 @@ merged governance PR #18. No deployment, settings or secret changes are allowed.
 5. Report npm ci, lint, typecheck, test and build independently. Keep branch
    protection and OIDC/attestation enablement as pending admin actions.
 
+6. Provide workflow_dispatch-only authenticated lockfile generation and full
+   npm validation before opening a PR on bits/lockfile-refresh. Pin actions to
+   full SHAs, separate package-read and PR-write privileges, refuse branch
+   overwrites, and document pending admin/signing/required-check prerequisites.
+
 No runtime behavior change is proposed. Application tests use mocked network
 boundaries; live cryptographic issuance/verification requires a successful
 GitHub run and administrator enablement. Gate: B+/75, grades/minimum CAPS pending.
