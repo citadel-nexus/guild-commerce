@@ -48,13 +48,18 @@ rules. Policy changes require Alex or a documented guildmasters-group delegate.
 
 ## GitHub ownership mapping
 
-`.github/CODEOWNERS` names Alex as accountable guildmaster and uses the existing
-`@citadel-nexus/guild-commerce-leads` team for GitHub routing. Alex's GitLab login
-does not establish his GitHub login. Before enabling required owner reviews,
-an admin must confirm the team exists, is visible, has explicit write access,
-and contains Alex's verified GitHub account. Preserve `sdk-core` access for SDK
-review. Confirm GitHub reports no CODEOWNERS errors and actually requests review
-on a test PR. Do not replace the team with an unverified `@alex` account.
+The operator confirmed the following identities through the Datadog
+`guild-commerce` team links:
+
+- Guildmaster review owner: [@citadel-nexus/guild-commerce](https://github.com/orgs/citadel-nexus/teams/guild-commerce).
+- Alex's automation identity: GitHub App [alex-commerce-guildmaster](https://github.com/apps/alex-commerce-guildmaster).
+
+`.github/CODEOWNERS` routes guildmaster reviews to `@citadel-nexus/guild-commerce`.
+GitHub Apps cannot be code owners; the app is Alex's automation identity, while
+the team supplies code-owner approval. Preserve `sdk-core` stewardship for SDK
+interface changes. GitHub requires owner teams to be visible and have write
+access. When enabling review enforcement, check CODEOWNERS errors and review
+routing on a test PR. The operator-confirmed ownership mapping is resolved.
 
 ## Default-branch protection: administrator action required
 
@@ -62,6 +67,14 @@ The verified default branch is `main`. There is no repository settings/ruleset
 manager in this repo; this document specifies the configuration an admin must
 apply in **Settings → Rules → Rulesets**. Committing these files does not enable
 GitHub protections or change organization settings.
+
+Expected automation actor for these rules: GitHub App
+`alex-commerce-guildmaster`, Alex's operator-confirmed automation identity.
+App-authored changes follow the same PR, independent code-owner review, signed
+commit and required-check rules. This identity grants no ruleset bypass; keep
+the bypass list empty unless the guildmasters group approves an explicit
+exception. Required CI checks still come from GitHub Actions, and build
+attestations retain the documented Actions workflow identity.
 
 Create an active branch ruleset targeting the **default branch**:
 

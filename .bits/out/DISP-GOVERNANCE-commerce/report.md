@@ -45,8 +45,10 @@ CKET: 04_HYPOTHESIZE, 11_COMMIT (logical repo-native paths).
 
 Task B — Ownership and administrator contract
 Status: PASS
-Output: Alex is accountable guildmaster; existing GitHub team routes reviews;
-SDK stewardship retained; enforcement requirements and mapping limits documented.
+Output: Alex is accountable guildmaster; operator-confirmed GitHub team
+@citadel-nexus/guild-commerce owns reviews. GitHub App alex-commerce-guildmaster
+is Alex's automation identity and expected ruleset actor, without bypass rights.
+SDK stewardship is retained; ownership-mapping follow-up is resolved.
 Verify: `python .bits/checks/verify_governance.py OwnershipTests`
 Files: .github/CODEOWNERS, GOVERNANCE.md
 CKET: 06_PLAN.
@@ -84,7 +86,13 @@ real offline npm packing. A missing compiled entry fails packaging; intentionall
 failing lifecycle scripts are not executed. This is packaging-fixture evidence,
 not an application compilation or a live signature test.
 
-Application baseline (no application edits in this dispatch):
+Ownership update: the operator-confirmed team and app are reflected in
+CODEOWNERS, the ruleset documentation, seat guidance and dispatch record.
+The four phase gates and strict mypy passed again after this update. The
+ownership tests require the team as owner and exclude the app from owner rules.
+
+Application baseline from the initial implementation (not rerun for this
+ownership/documentation update; no application edits in this dispatch):
 
 | Command | Expected | Actual | Result / root cause / applied fix |
 | --- | --- | --- | --- |
@@ -108,7 +116,7 @@ documented suppression. No application typing errors were suppressed.
 ## §4 MEMORY INGEST
 
 Payload: .bits/out/DISP-GOVERNANCE-commerce/memory.json
-Type A count: 13. Type B count: 22. Type C count: 3.
+Type A count: 13. Type B count: 22. Type C count: 4.
 IOO compliance: true. DKG orphans: 0. Verify with
 `python .bits/checks/verify_governance.py MemoryTests`.
 All file vectors have an edge and substantive intent. CK/CAPS remain pending.
@@ -142,8 +150,9 @@ Verify scope: `git diff --name-only e429c515c8184c37e8245ed6b3a48f65a1b226ff HEA
 
 ## §7 NEXT ACTIONS
 
-- Admin: verify Alex's GitHub identity and owner-team membership/access; enable
-  branch rules, required owner review, signed commits and required status checks.
+- Admin: enable branch rules, required owner review, signed commits and required
+  status checks. The confirmed automation actor is alex-commerce-guildmaster;
+  this identity does not grant a ruleset bypass.
 - Maintainer: restore build prerequisites and add PR coverage for security checks
   before an admin requires those checks. Existing Docker login expressions also
   appear malformed; this dispatch leaves them unchanged.

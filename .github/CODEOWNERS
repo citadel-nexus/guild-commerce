@@ -16,11 +16,11 @@
 # ───────────────────────────────────────────────────────────────
 
 # Accountable guildmaster: Alex (GitLab: alex).
-# GitHub identity is unconfirmed: do not assume @alex is the same person.
-# Admin: confirm Alex's GitHub account is in this visible team with write access.
-# Datadog team handle: guild-commerce (not an inferred GitHub team).
-* @citadel-nexus/guild-commerce-leads
+# Operator-confirmed owner team via the Datadog guild-commerce team links.
+# Alex's automation identity: GitHub App alex-commerce-guildmaster.
+# GitHub Apps cannot be code owners; route reviews to the team below.
+* @citadel-nexus/guild-commerce
 
 # Preserve SDK stewardship; GitHub accepts ANY listed owner for this pattern.
 # GOVERNANCE.md requires both Commerce and SDK approval for interface changes.
-src/index.ts @citadel-nexus/guild-commerce-leads @citadel-nexus/sdk-core
+src/index.ts @citadel-nexus/guild-commerce @citadel-nexus/sdk-core

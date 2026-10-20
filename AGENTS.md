@@ -31,9 +31,10 @@ and creation of these records. The exact authorization is recorded in
 
 - Work only on SRS-CN-COMMERCE-GOVERNANCE-001 in this dispatch. Preserve the
   separate living-world registry entry and queued dispatch.
-- Guildmaster: Alex (GitLab `alex`). Datadog team: `guild-commerce`. Do not
-  infer Alex's GitHub login from his GitLab identity. Existing GitHub owner
-  team: `@citadel-nexus/guild-commerce-leads`.
+- Guildmaster: Alex (GitLab `alex`). Datadog team: `guild-commerce`. The operator
+  confirmed GitHub owner team `@citadel-nexus/guild-commerce` and automation
+  identity GitHub App `alex-commerce-guildmaster` through the Datadog team links.
+  GitHub Apps cannot be code owners; use the team for review ownership.
 - Scope: governance, ownership, branch protection documentation, build
   attestations, verification and associated dispatch/report/memory records.
 - No deploys, production changes, GitHub settings writes, secret handling,

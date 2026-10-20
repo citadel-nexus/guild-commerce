@@ -85,17 +85,21 @@ class OwnershipTests(unittest.TestCase):
     def test_guildmaster_and_sdk_stewardship(self) -> None:
         owners = (ROOT / '.github/CODEOWNERS').read_text()
         rules = [line.split() for line in owners.splitlines() if line.strip() and not line.startswith('#')]
-        self.assertIn(['*', '@citadel-nexus/guild-commerce-leads'], rules)
+        self.assertIn(['*', '@citadel-nexus/guild-commerce'], rules)
         interface = next(rule for rule in rules if rule[0] == 'src/index.ts')
-        self.assertIn('@citadel-nexus/guild-commerce-leads', interface)
+        self.assertIn('@citadel-nexus/guild-commerce', interface)
         self.assertIn('@citadel-nexus/sdk-core', interface)
         self.assertIn('Alex (GitLab: alex)', owners)
-        self.assertNotIn('@alex', [owner for rule in rules for owner in rule[1:]])
+        rule_owners = [owner for rule in rules for owner in rule[1:]]
+        self.assertNotIn('@alex', rule_owners)
+        self.assertFalse(any('alex-commerce-guildmaster' in owner for owner in rule_owners))
 
     def test_charter_and_verification_policy(self) -> None:
         charter = (ROOT / 'GOVERNANCE.md').read_text()
         for value in ('Scope Sheet Pro', 'leads', 'walk-in', 'CTA', 'provisioning', 'guildmasters group',
                       'Require signed commits', 'code-owner review', 'Require status checks',
+                      '@citadel-nexus/guild-commerce', 'alex-commerce-guildmaster',
+                      'Expected automation actor', 'GitHub Apps cannot be code owners',
                       '--source-digest', '--source-ref refs/heads/main', '--signer-workflow',
                       '--deny-self-hosted-runners', '--predicate-type https://slsa.dev/provenance/v1'):
             self.assertIn(value, charter)

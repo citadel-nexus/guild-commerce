@@ -12,7 +12,7 @@
       "dependencies": [
         ".bits/queue/DISP-GOVERNANCE-commerce.md"
       ],
-      "lines": 58,
+      "lines": 59,
       "caps_grade": "pending",
       "ck_stamp": "pending",
       "intent_statement": "Constrain Commerce governance work to the authorized public staging scope.",
@@ -54,7 +54,7 @@
         "AGENTS.md",
         "GOVERNANCE.md"
       ],
-      "lines": 31,
+      "lines": 34,
       "caps_grade": "pending",
       "ck_stamp": "pending",
       "intent_statement": "Give IDE seats a shared boundary for the Commerce governance bootstrap.",
@@ -240,7 +240,7 @@
         ".bits/srs/SRS-CN-COMMERCE-GOVERNANCE-001.md",
         ".bits/checks/verify_governance.py"
       ],
-      "lines": 77,
+      "lines": 87,
       "caps_grade": "pending",
       "ck_stamp": "pending",
       "intent_statement": "Bind staging governance tasks to the authenticated operator directive.",
@@ -333,7 +333,7 @@
         ".github/CODEOWNERS",
         ".github/workflows/provenance.yml"
       ],
-      "lines": 171,
+      "lines": 184,
       "caps_grade": "pending",
       "ck_stamp": "pending",
       "intent_statement": "Make Commerce approval authority and artifact trust requirements explicit.",
@@ -467,7 +467,7 @@
         "unittest",
         "yaml"
       ],
-      "lines": 242,
+      "lines": 246,
       "caps_grade": "pending",
       "ck_stamp": "pending",
       "intent_statement": "Test the provenance trust boundary and governance record consistency.",
@@ -529,7 +529,7 @@
         ".bits/queue/DISP-GOVERNANCE-commerce.md",
         ".bits/out/DISP-GOVERNANCE-commerce/memory.json"
       ],
-      "lines": 161,
+      "lines": 170,
       "caps_grade": "pending",
       "ck_stamp": "pending",
       "intent_statement": "Separate completed governance implementation from outstanding enablement evidence.",
@@ -580,7 +580,7 @@
       "dependencies": [
         ".bits/out/DISP-GOVERNANCE-commerce/report.md"
       ],
-      "lines": 705,
+      "lines": 718,
       "caps_grade": "pending",
       "ck_stamp": "pending",
       "intent_statement": "Preserve file relationships and observed validation evidence for post-merge ingestion.",
@@ -688,12 +688,25 @@
       "timestamp": "2026-10-20T17:35:58.493525+00:00",
       "commit_sha": null,
       "smoke_result": "13/13"
+    },
+    {
+      "type": "C",
+      "event_type": "test_pass",
+      "file_path": ".bits/checks/verify_governance.py",
+      "description": "Operator-confirmed Commerce team ownership and guildmaster app identity applied; all four governance phase gates (13 tests) and strict mypy passed. The app is excluded from CODEOWNERS and is documented as the expected ruleset actor without bypass rights.",
+      "caps_before": null,
+      "caps_after": null,
+      "dag_impact": null,
+      "dispatch_id": "DISP-GOVERNANCE-commerce",
+      "timestamp": "2026-10-20T17:39:17.383492+00:00",
+      "commit_sha": null,
+      "smoke_result": "13/13"
     }
   ],
   "summary": {
     "type_a_count": 13,
     "type_b_count": 22,
-    "type_c_count": 3,
+    "type_c_count": 4,
     "ioo_compliance": true,
     "dkg_orphans": 0,
     "dispatch_id": "DISP-GOVERNANCE-commerce",

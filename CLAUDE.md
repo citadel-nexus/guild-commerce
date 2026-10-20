@@ -21,7 +21,10 @@
 
 Commerce owns sales and onboarding: Scope Sheet Pro, leads, walk-in, CTA and
 provisioning. Alex (GitLab `alex`) is guildmaster; `guild-commerce` is the
-Datadog team handle. GitHub membership must be verified by a repository admin.
+Datadog team handle. The operator confirmed GitHub owner team
+`@citadel-nexus/guild-commerce` and Alex's automation identity, GitHub App
+`alex-commerce-guildmaster`, through that team's links. The team owns reviews;
+GitHub Apps cannot be code owners.
 
 Start with AGENTS.md and .bits/context.md. This staging bootstrap establishes
 ownership and signed build provenance; application repair, deployment, account

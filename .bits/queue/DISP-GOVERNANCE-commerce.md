@@ -41,6 +41,16 @@ Bounds: one branch and PR for this SRS; no production, deploy, push to main,
 GitHub settings changes, or secrets. These are local staging authorization
 records, not a claim that a remote VCC database row was created or verified.
 
+## Operator identity confirmation
+
+The authenticated operator confirmed through the Datadog `guild-commerce` team
+links that `@citadel-nexus/guild-commerce` is the guildmaster owner team and
+GitHub App `alex-commerce-guildmaster` is Alex's automation identity. The operator
+directed updating CODEOWNERS, recording the app as the expected ruleset actor,
+and removing the ownership-mapping follow-up under this same SRS and dispatch.
+GitHub Apps cannot be code owners. This confirmation does not authorize settings
+changes or ruleset bypasses.
+
 ## Task table
 
 | Phase | Task | Gate |
