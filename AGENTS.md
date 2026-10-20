@@ -2,58 +2,51 @@
 # ─── CGRF Header ───────────────────────────────────────────────
 # File:        AGENTS.md
 # Stage:       04_HYPOTHESIZE
-# SRS:         SRS-CN-COMMERCE-GOVERNANCE-001
+# SRS:         SRS-CN-COMMERCE-BUILD-001
 # CAPS:        pending
 # CK:          pending
-# Dispatch:    DISP-GOVERNANCE-commerce
+# Dispatch:    DISP-BUILD-commerce
 # Seat:        BITS-CODEGEN
 # Owner:       Citadel Nexus Inc.
 # Created:     2026-10-20
-# Depends:     .bits/queue/DISP-GOVERNANCE-commerce.md
+# Depends:     .bits/queue/DISP-BUILD-commerce.md
 # EnumType:    ConfigDoc
-# EnumEdges:   DEPENDS_ON .bits/queue/DISP-GOVERNANCE-commerce.md
+# EnumEdges:   DEPENDS_ON .bits/queue/DISP-BUILD-commerce.md
 # DAG Node:    none
-# Intent:      Constrain Commerce governance work to the authorized public staging scope.
+# Intent:      Keep Commerce build repair within the active operator authorization.
 # ───────────────────────────────────────────────────────────────
 -->
 
 # Commerce Guild agent guidance
 
 Owner: Citadel Nexus Inc. Seat: BITS-CODEGEN. Mode: staging.
-This repository is `citadel-nexus/guild-commerce`, a public TypeScript guild
-package; it is not the CNWB monorepo or `cnwb-mirror`.
+This is the public TypeScript repository `citadel-nexus/guild-commerce`.
 
-Read this file, CLAUDE.md, .bits/context.md, .bits/srs_registry.yml, the active
-SRS document, and its queue record before changes. The authenticated operator
-Dmitry Richard (mr.nobody@citadel-nexus.com) authorized the governance bootstrap
-and creation of these records. The exact authorization is recorded in
-.bits/queue/DISP-GOVERNANCE-commerce.md. It does not grant production access.
+Read AGENTS.md, CLAUDE.md, .bits/context.md, .bits/srs_registry.yml, the active
+SRS and queue record before changes. The current authorization is
+SRS-CN-COMMERCE-BUILD-001 / DISP-BUILD-commerce. The authenticated operator
+Dmitry Richard authorized the build-repair follow-up separately from merged
+PR #18. Preserve the governance and living-world records as historical scopes.
 
-- Work only on SRS-CN-COMMERCE-GOVERNANCE-001 in this dispatch. Preserve the
-  separate living-world registry entry and queued dispatch.
-- Guildmaster: Alex (GitLab `alex`). Datadog team: `guild-commerce`. The operator
-  confirmed GitHub owner team `@citadel-nexus/guild-commerce` and automation
-  identity GitHub App `alex-commerce-guildmaster` through the Datadog team links.
-  GitHub Apps cannot be code owners; use the team for review ownership.
-- Scope: governance, ownership, branch protection documentation, build
-  attestations, verification and associated dispatch/report/memory records.
-- No deploys, production changes, GitHub settings writes, secret handling,
-  direct pushes, runtime changes, or private-stack work. Preserve existing
-  release and CI workflows. Do not modify notify-citadel.yml.
-- Use one SRS branch/PR. Conventional commits include Phase, Files, Smoke,
-  SRS, Dispatch and CK: pending footers. The publishing UI controls the final
-  branch name and PR creation.
-- New files have CGRF headers; JSON uses a sibling .cgrf.yaml. Markdown headers
-  are HTML comments. Stages are logical classifications at the repo-native
-  paths explicitly requested by the operator: governance/CODEOWNERS are
-  06_PLAN; agent/SRS documents 04_HYPOTHESIZE; .bits operational records and
-  GitHub workflows 11_COMMIT. Do not move GitHub-recognized paths into stage
-  directories or create application code as part of this bootstrap.
-- Do not read or change protected CNWB paths, third-party CGRF files, secrets,
-  signing-key logic, or canary memory. Emit CK/CAPS/CKS as pending only.
-- Follow CONTRIBUTING.md for package conventions. Do not invent dependency
-  versions, a lockfile, a GitHub account mapping, or successful checks.
-- Run the dispatch smoke block. Record pre-existing application test failures
-  separately from governance checks; request a follow-up dispatch for them.
-- Governance and provenance acceptance criteria are in the SRS. No new
-  runtime module is introduced, so SAKE module stubs are not applicable.
+- Scope: reproducible dependencies/lockfile, TypeScript, ESLint, Vitest, Docker
+  CI expressions, retained CodeQL/secret scanning and real-build provenance
+  verification. Preserve runtime behavior and existing tests; do not hide build
+  failures with stubs, exclusions or relaxed coverage thresholds.
+- No production/deploy, push to main, GitHub settings or secrets changes.
+  Branch protection and OIDC/attestation permissions remain admin actions.
+- Alex (GitLab `alex`) is guildmaster. The operator confirmed GitHub owner team
+  `@citadel-nexus/guild-commerce` and GitHub App `alex-commerce-guildmaster` as
+  his automation identity. Apps cannot be CODEOWNERS or bypass rules by default.
+- Use one new branch/PR for this SRS. Conventional commits include Phase, Files,
+  Smoke, SRS, Dispatch and CK: pending. Publication is through the coding UI.
+- Keep CGRF headers and JSON companions. Logical stages at repo-native paths:
+  guidance/specs 04_HYPOTHESIZE, governance docs 06_PLAN, build/test/CI and .bits
+  records 11_COMMIT. This operator-authorized repair includes build configuration
+  and tests; it does not authorize private-stack or production code work.
+- Do not read/change protected CNWB paths, secrets, signing-key logic or canary
+  memory. Keep CK/CAPS/CKS pending. No notify-citadel.yml changes.
+- Follow CONTRIBUTING.md. Never invent SDK implementations, dependency integrity
+  hashes, lockfiles or successful results. Preserve previous dispatch memory;
+  write current evidence under .bits/out/DISP-BUILD-commerce/.
+- Run the dispatch gates and report npm ci/lint/typecheck/test/build results
+  separately. Record dependency/network blockers and keep CI failing closed.

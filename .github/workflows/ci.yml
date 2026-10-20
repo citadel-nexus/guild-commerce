@@ -1,3 +1,20 @@
+# ─── CGRF Header ───────────────────────────────────────────────
+# File:        .github/workflows/ci.yml
+# Stage:       11_COMMIT
+# SRS:         SRS-CN-COMMERCE-BUILD-001
+# CAPS:        pending
+# CK:          pending
+# Dispatch:    DISP-BUILD-commerce
+# Seat:        BITS-CODEGEN
+# Owner:       Citadel Nexus Inc.
+# Created:     2026-10-20
+# Depends:     package.json, docker/Dockerfile
+# EnumType:    Workflow
+# EnumEdges:   VALIDATES package.json; DEPENDS_ON docker/Dockerfile
+# DAG Node:    none
+# Intent:      Gate Commerce builds on the complete toolchain while preserving fixed Docker expressions.
+# ───────────────────────────────────────────────────────────────
+
 name: CI — guild-commerce
 on:
   push:
@@ -14,6 +31,7 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm run lint
+      - run: npm run typecheck
       - run: npm test
       - run: npm run build
   docker:
@@ -21,6 +39,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       packages: write
     steps:
       - uses: actions/checkout@v4

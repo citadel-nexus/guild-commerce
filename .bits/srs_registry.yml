@@ -1,18 +1,18 @@
 # ─── CGRF Header ───────────────────────────────────────────────
 # File:        .bits/srs_registry.yml
 # Stage:       11_COMMIT
-# SRS:         SRS-CN-COMMERCE-GOVERNANCE-001
+# SRS:         SRS-CN-COMMERCE-BUILD-001
 # CAPS:        pending
 # CK:          pending
-# Dispatch:    DISP-GOVERNANCE-commerce
+# Dispatch:    DISP-BUILD-commerce
 # Seat:        BITS-CODEGEN
 # Owner:       Citadel Nexus Inc.
 # Created:     2026-10-20
-# Depends:     .bits/srs/SRS-CN-COMMERCE-GOVERNANCE-001.md
+# Depends:     .bits/srs/SRS-CN-COMMERCE-BUILD-001.md
 # EnumType:    ConfigDoc
-# EnumEdges:   GATES .bits/srs/SRS-CN-COMMERCE-GOVERNANCE-001.md
+# EnumEdges:   GATES .bits/srs/SRS-CN-COMMERCE-BUILD-001.md
 # DAG Node:    none
-# Intent:      Register the operator-authorized governance scope alongside existing work.
+# Intent:      Register the separate operator-authorized Commerce build repair.
 # ───────────────────────────────────────────────────────────────
 
 # Living-World SRS registry
@@ -50,3 +50,37 @@ SRS-CN-COMMERCE-GOVERNANCE-001:
   notes: >
     Authenticated operator staging bootstrap; no production, deploy, settings
     writes, secrets, or direct pushes. CAPS minimum requires operator assignment.
+
+SRS-CN-COMMERCE-BUILD-001:
+  status: in_progress
+  phase: "Commerce build repair and provenance verification"
+  dispatch: DISP-BUILD-commerce
+  spec: .bits/srs/SRS-CN-COMMERCE-BUILD-001.md
+  cks_gate: "B+/75"
+  caps_minimum: pending
+  paths:
+    - AGENTS.md
+    - CLAUDE.md
+    - GOVERNANCE.md
+    - package.json
+    - package-lock.json
+    - '*.cgrf.yaml'
+    - tsconfig.json
+    - tsconfig.test.json
+    - eslint.config.js
+    - vitest.config.ts
+    - tests/
+    - .gitignore
+    - .dockerignore
+    - .github/workflows/ci.yml
+    - .github/workflows/security-scan.yml
+    - .github/workflows/provenance.yml
+    - .bits/context.md
+    - .bits/srs_registry.yml
+    - .bits/srs/SRS-CN-COMMERCE-BUILD-001.md
+    - .bits/queue/DISP-BUILD-commerce.md
+    - .bits/checks/verify_governance.py
+    - .bits/out/DISP-BUILD-commerce/
+  notes: >
+    Operator AUTHORIZED staging build repair; record unresolved dependencies.
+    No production, deploy, direct pushes, settings or secret changes.

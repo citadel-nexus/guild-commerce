@@ -1,18 +1,18 @@
 # ─── CGRF Header ───────────────────────────────────────────────
 # File:        .bits/checks/verify_governance.py
 # Stage:       11_COMMIT
-# SRS:         SRS-CN-COMMERCE-GOVERNANCE-001
+# SRS:         SRS-CN-COMMERCE-BUILD-001
 # CAPS:        pending
 # CK:          pending
-# Dispatch:    DISP-GOVERNANCE-commerce
+# Dispatch:    DISP-BUILD-commerce
 # Seat:        BITS-CODEGEN
 # Owner:       Citadel Nexus Inc.
 # Created:     2026-10-20
-# Depends:     .github/workflows/provenance.yml, .github/CODEOWNERS, .bits/out/DISP-GOVERNANCE-commerce/memory.json
+# Depends:     .github/workflows/provenance.yml, .github/CODEOWNERS, .bits/out/DISP-BUILD-commerce/memory.json
 # EnumType:    Test
-# EnumEdges:   VALIDATES .github/workflows/provenance.yml; VALIDATES .github/CODEOWNERS; VALIDATES .bits/out/DISP-GOVERNANCE-commerce/memory.json
+# EnumEdges:   VALIDATES .github/workflows/provenance.yml; VALIDATES .github/CODEOWNERS; VALIDATES .bits/out/DISP-BUILD-commerce/memory.json
 # DAG Node:    none
-# Intent:      Test the provenance trust boundary and governance record consistency.
+# Intent:      Retain governance checks and test the build and verifier trust boundaries.
 # ───────────────────────────────────────────────────────────────
 
 """Validate Commerce governance and its artifact trust boundary."""
@@ -33,8 +33,8 @@ from typing import Any, cast
 import yaml  # type: ignore[import-untyped]
 
 ROOT = Path(__file__).resolve().parents[2]
-SRS = 'SRS-CN-COMMERCE-GOVERNANCE-001'
-DISPATCH = 'DISP-GOVERNANCE-commerce'
+SRS = 'SRS-CN-COMMERCE-BUILD-001'
+DISPATCH = 'DISP-BUILD-commerce'
 OUT = ROOT / '.bits/out' / DISPATCH
 
 
@@ -59,10 +59,11 @@ class RecordsTests(unittest.TestCase):
     def test_authorization_and_scope(self) -> None:
         registry = yaml.safe_load((ROOT / '.bits/srs_registry.yml').read_text())
         self.assertIn('SRS-CN-COMMERCE-LIVINGWORLD-001', registry)
+        self.assertIn('SRS-CN-COMMERCE-GOVERNANCE-001', registry)
         self.assertEqual(registry[SRS]['dispatch'], DISPATCH)
         self.assertEqual(registry[SRS]['status'], 'in_progress')
         queue = (ROOT / '.bits/queue' / f'{DISPATCH}.md').read_text()
-        for value in ('status: in_progress', 'mr.nobody@citadel-nexus.com', '"create those"', 'mode: staging'):
+        for value in ('status: in_progress', 'mr.nobody@citadel-nexus.com', 'AUTHORIZED', 'mode: staging'):
             self.assertIn(value, queue)
         for path in ('AGENTS.md', 'CLAUDE.md', '.bits/context.md', f'.bits/srs/{SRS}.md'):
             self.assertIn(SRS if path != 'CLAUDE.md' else 'Commerce', (ROOT / path).read_text())
@@ -77,7 +78,7 @@ class RecordsTests(unittest.TestCase):
             header = header_path.read_text().split('# ───────────────────────────────────────────────────────────────', 1)[0]
             for field, value in (('SRS', SRS), ('Dispatch', DISPATCH), ('Owner', 'Citadel Nexus Inc.'),
                                  ('CK', 'pending'), ('CAPS', 'pending')):
-                self.assertRegex(header, rf'# {field}:\s+{re.escape(value)}')
+                self.assertRegex(header, rf'(?:#|//) {field}:\s+{re.escape(value)}')
             self.assertIn(entry['cket_stage'], header)
 
 
@@ -149,7 +150,7 @@ class WorkflowTests(unittest.TestCase):
             self.assertNotIn('run', step)
             self.assertFalse(step['uses'].startswith('actions/checkout@'))
         commands = [step['run'] for step in jobs['build']['steps'] if 'run' in step]
-        self.assertEqual(commands[:4], ['npm ci', 'npm run lint', 'npm test', 'npm run build'])
+        self.assertEqual(commands[:5], ['npm ci', 'npm run lint', 'npm run typecheck', 'npm test', 'npm run build'])
 
     def test_signer_downloads_exact_same_run_artifact(self) -> None:
         jobs = workflow()['jobs']
@@ -197,6 +198,92 @@ class WorkflowTests(unittest.TestCase):
             self.assertFalse(list(Path(directory).rglob('*.tgz')))
 
 
+class BuildTests(unittest.TestCase):
+    def test_toolchain_keeps_real_dependencies_and_all_gates(self) -> None:
+        package = json.loads((ROOT / 'package.json').read_text())
+        self.assertEqual(package['dependencies'], {'@citadel-guilds/sdk': '^0.1.0', 'nats': '^2.19.0'})
+        self.assertNotIn('overrides', package)
+        self.assertEqual(package['scripts']['test'], 'vitest run --coverage')
+        self.assertIn('tsconfig.test.json', package['scripts']['typecheck'])
+        for dependency in ('typescript', 'eslint', '@typescript-eslint/parser', '@typescript-eslint/eslint-plugin', 'vitest', '@vitest/coverage-v8', '@types/node'):
+            self.assertIn(dependency, package['devDependencies'])
+        config = json.loads((ROOT / 'tsconfig.json').read_text())
+        self.assertTrue(config['compilerOptions']['strict'])
+        self.assertTrue(config['compilerOptions']['noEmitOnError'])
+        self.assertEqual(config['include'], ['src/**/*.ts'])
+        self.assertEqual(config['compilerOptions']['rootDir'], 'src')
+        coverage = (ROOT / 'vitest.config.ts').read_text()
+        for metric in ('lines', 'branches', 'functions', 'statements'):
+            self.assertIn(f'{metric}: 80', coverage)
+        self.assertNotIn('passWithNoTests', coverage)
+
+    def test_docker_expressions_and_security_checks_are_preserved(self) -> None:
+        ci = yaml.load((ROOT / '.github/workflows/ci.yml').read_text(), Loader=yaml.BaseLoader)
+        login = next(s for s in ci['jobs']['docker']['steps'] if s.get('uses', '').startswith('docker/login-action@'))
+        self.assertEqual(login['with']['username'], '${{ github.actor }}')
+        self.assertEqual(login['with']['password'], '${{ secrets.GITHUB_TOKEN }}')
+        self.assertEqual([s['run'] for s in ci['jobs']['build']['steps'] if 'run' in s],
+                         ['npm ci', 'npm run lint', 'npm run typecheck', 'npm test', 'npm run build'])
+        security = yaml.load((ROOT / '.github/workflows/security-scan.yml').read_text(), Loader=yaml.BaseLoader)
+        self.assertEqual(security['on']['pull_request']['branches'], ['main'])
+        self.assertIn('codeql', security['jobs'])
+        self.assertIn('secret-scan', security['jobs'])
+        self.assertIn('github/codeql-action/analyze@v3', [s.get('uses') for s in security['jobs']['codeql']['steps']])
+        self.assertIn('trufflesecurity/trufflehog@main', [s.get('uses') for s in security['jobs']['secret-scan']['steps']])
+
+    def test_verifier_is_read_only_and_requires_the_successful_signer(self) -> None:
+        config = workflow()
+        verifier = config['jobs']['verify']
+        self.assertEqual(set(verifier['needs']), {'build', 'attest'})
+        self.assertNotIn('if', verifier)  # Default success() prevents PR/failed-signer execution.
+        self.assertEqual(verifier['permissions'], {'contents': 'read', 'actions': 'read', 'attestations': 'read'})
+        downloads = [s for s in verifier['steps'] if s.get('uses', '').startswith('actions/download-artifact@')]
+        self.assertEqual([s['with']['artifact-ids'] for s in downloads],
+                         ['${{ needs.build.outputs.artifact-id }}', '${{ needs.attest.outputs.bundle-id }}'])
+        for step in downloads:
+            self.assertNotIn('run-id', step['with'])
+            self.assertNotIn('repository', step['with'])
+        self.assertEqual(config['jobs']['attest']['outputs']['bundle-id'], '${{ steps.bundle.outputs.artifact-id }}')
+        self.assertFalse(any(s.get('uses', '').startswith('actions/checkout@') for s in verifier['steps']))
+
+    def test_verification_orchestration_fails_closed(self) -> None:
+        command = next(s['run'] for s in workflow()['jobs']['verify']['steps'] if 'run' in s)
+        fake_gh = '''#!/usr/bin/env python3
+import os
+from pathlib import Path
+import sys
+args = sys.argv[1:]
+if os.environ['VERIFY_FIXTURE_MODE'] == 'accept-all':
+    sys.exit(0)
+if os.environ['VERIFY_FIXTURE_MODE'] == 'reject-all':
+    sys.exit(1)
+assert args[:2] == ['attestation', 'verify']
+assert '--deny-self-hosted-runners' in args
+for flag, value in {'--repo': 'citadel-nexus/guild-commerce', '--source-ref': 'refs/heads/main', '--predicate-type': 'https://slsa.dev/provenance/v1'}.items():
+    assert args[args.index(flag)+1] == value
+assert Path(args[args.index('--bundle')+1]).read_bytes() == b'fixture bundle'
+valid = (Path(args[2]).read_bytes() == b'fixture build' and args[args.index('--source-digest')+1] == '1'*40 and args[args.index('--signer-workflow')+1] == 'citadel-nexus/guild-commerce/.github/workflows/provenance.yml')
+sys.exit(0 if valid else 1)
+'''
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'verify-build').mkdir()
+            (root / 'verify-bundle').mkdir()
+            (root / 'verify-build/build.tgz').write_bytes(b'fixture build')
+            (root / 'verify-bundle/attestation.jsonl').write_bytes(b'fixture bundle')
+            (root / 'gh').write_text(fake_gh)
+            (root / 'gh').chmod(0o755)
+            environment = {**os.environ, 'PATH': str(root) + os.pathsep + os.environ['PATH'], 'RUNNER_TEMP': directory,
+                           'GITHUB_REPOSITORY': 'citadel-nexus/guild-commerce', 'GITHUB_SHA': '1' * 40}
+            for mode, expected in (('policy', 0), ('accept-all', 1), ('reject-all', 1)):
+                with self.subTest(mode=mode):
+                    result = subprocess.run(['bash', '-c', command], env={**environment, 'VERIFY_FIXTURE_MODE': mode}, capture_output=True, text=True)
+                    self.assertEqual(result.returncode, expected, result.stdout + result.stderr)
+            (root / 'verify-build/build.tgz').unlink()
+            result = subprocess.run(['bash', '-c', command], env={**environment, 'VERIFY_FIXTURE_MODE': 'policy'}, capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+
+
 class MemoryTests(unittest.TestCase):
     def test_counts_ioo_and_no_orphans(self) -> None:
         payload = json.loads((OUT / 'memory.json').read_text())
@@ -233,7 +320,7 @@ class MemoryTests(unittest.TestCase):
                 companion = yaml.safe_load(path.with_suffix('.cgrf.yaml').read_text())
                 declarations = companion['enum_edges']
             else:
-                match = re.search(r'^# EnumEdges:\s+(.+)$', path.read_text(), re.MULTILINE)
+                match = re.search(r'^(?:#|//) EnumEdges:\s+(.+)$', path.read_text(), re.MULTILINE)
                 assert match is not None, f'Missing EnumEdges: {path}'
                 declarations = match[1]
             for declaration in declarations.split(';'):

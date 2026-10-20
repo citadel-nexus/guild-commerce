@@ -1,0 +1,25 @@
+# ─── CGRF Header ───────────────────────────────────────────────
+# File:        .dockerignore
+# Stage:       11_COMMIT
+# SRS:         SRS-CN-COMMERCE-BUILD-001
+# CAPS:        pending
+# CK:          pending
+# Dispatch:    DISP-BUILD-commerce
+# Seat:        BITS-CODEGEN
+# Owner:       Citadel Nexus Inc.
+# Created:     2026-10-20
+# Depends:     docker/Dockerfile
+# EnumType:    ConfigDoc
+# EnumEdges:   GATES docker/Dockerfile
+# DAG Node:    none
+# Intent:      Keep local artifacts and credentials out of Docker build contexts.
+# ───────────────────────────────────────────────────────────────
+
+.git
+node_modules
+dist
+coverage
+.env
+.env.*
+.bits/out
+.codex

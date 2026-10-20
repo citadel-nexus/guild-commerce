@@ -1,8 +1,27 @@
+# ─── CGRF Header ───────────────────────────────────────────────
+# File:        .github/workflows/security-scan.yml
+# Stage:       11_COMMIT
+# SRS:         SRS-CN-COMMERCE-BUILD-001
+# CAPS:        pending
+# CK:          pending
+# Dispatch:    DISP-BUILD-commerce
+# Seat:        BITS-CODEGEN
+# Owner:       Citadel Nexus Inc.
+# Created:     2026-10-20
+# Depends:     src/index.ts
+# EnumType:    Workflow
+# EnumEdges:   VALIDATES src/index.ts
+# DAG Node:    none
+# Intent:      Retain CodeQL and secret scanning and expose their checks on pull requests.
+# ───────────────────────────────────────────────────────────────
+
 name: Security Scan - guild-commerce
 on:
   schedule:
     - cron: '0 3 * * 1'
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 jobs:

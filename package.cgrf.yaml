@@ -1,0 +1,20 @@
+# ─── CGRF Header ───────────────────────────────────────────────
+# File:        package.cgrf.yaml
+# Stage:       11_COMMIT
+# SRS:         SRS-CN-COMMERCE-BUILD-001
+# CAPS:        pending
+# CK:          pending
+# Dispatch:    DISP-BUILD-commerce
+# Seat:        BITS-CODEGEN
+# Owner:       Citadel Nexus Inc.
+# Created:     2026-10-20
+# Depends:     package.json
+# EnumType:    ConfigDoc
+# EnumEdges:   GATES package.json
+# DAG Node:    none
+# Intent:      Provide CGRF metadata for package.json.
+# ───────────────────────────────────────────────────────────────
+
+file: package.json
+intent_statement: Declare the real build and test toolchain for reproducible Commerce validation.
+enum_edges: DEPENDS_ON tsconfig.json; DEPENDS_ON vitest.config.ts; DEPENDS_ON eslint.config.js

@@ -1,0 +1,20 @@
+# ─── CGRF Header ───────────────────────────────────────────────
+# File:        tsconfig.cgrf.yaml
+# Stage:       11_COMMIT
+# SRS:         SRS-CN-COMMERCE-BUILD-001
+# CAPS:        pending
+# CK:          pending
+# Dispatch:    DISP-BUILD-commerce
+# Seat:        BITS-CODEGEN
+# Owner:       Citadel Nexus Inc.
+# Created:     2026-10-20
+# Depends:     tsconfig.json
+# EnumType:    ConfigDoc
+# EnumEdges:   GATES tsconfig.json
+# DAG Node:    none
+# Intent:      Provide CGRF metadata for tsconfig.json.
+# ───────────────────────────────────────────────────────────────
+
+file: tsconfig.json
+intent_statement: Compile the complete Commerce source tree with strict checks.
+enum_edges: GATES package.json
